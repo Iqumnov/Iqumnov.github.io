@@ -1,0 +1,80 @@
+================================================================================
+ Matvei Igumnov // Quantum Security & Systems Defense
+ Web: https://iqumnov.com | Email: matvei@iqumnov.com
+================================================================================
+
+⌍ Overview ⌎
+Quantum Security, Cryptographic Engineering, and Low-Level Systems Defense.
+Developing static verification tooling, kernel-level telemetry, and post-quantum
+cryptographic (PQC) architectures.
+
+• Education: B.S. in Information Security, Moscow Polytechnic University (2027)
+• Co-founder & curator at Our Dynasty Art (https://ourdynasty.art) — gallery & collection spanning five generations of family artists.
+
+⌍ Network & Socials ⌎
+• GitHub    : https://github.com/Iqumnov
+• ORCID     : https://orcid.org/0009-0001-7924-1522
+• Telegram  : https://t.me/iqumnov
+• Discord   : https://discord.com/users/iqumnov
+• LinkedIn  : https://www.linkedin.com/in/iqumnov
+• YouTube   : https://www.youtube.com/@Iqumnov
+• Instagram : https://www.instagram.com/iqumnov
+• Email     : mailto:matvei@iqumnov.com
+
+⌍ Core Initiatives ⌎
+[01] PQCanary
+     Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization.
+     Stack:  Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit
+     Links:  https://github.com/Iqumnov/PQCanary • https://pqcanary.pages.dev
+
+[02] QIR Reversing
+     LLVM Quantum Intermediate Representation (QIR) reverse engineering & formal verification suite: algebraic commutation deobfuscator (involution collapse & Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins.
+     Stack:  Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP
+     Links:  https://github.com/Iqumnov/Qir-Reversing • https://qir-reversing.iqumnov.com
+
+[03] TurtleShell Demo
+     Open-source numerical verification artifact for multi-tenant trapped-ion quantum computer isolation (Contour 3 — temporal laser-cooling buffers): analytical phonon dynamics validation against QuTiP Lindblad master-equation solver with <10⁻⁶ deviation (DOI: 10.5281/zenodo.21921488).
+     Stack:  Python, QuTiP, NumPy, SciPy, Matplotlib
+     Links:  https://github.com/Iqumnov/turtleshell-demo
+
+⌍ Technical Skills ⌎
+┌── Languages ───────────► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
+├── Security & Backend ──► Spring Boot • Spring Security • Quarkus • Bouncy Castle (JCA/PQC) • Keycloak • gRPC
+├── Quantum & Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Z3 SMT
+├── Crypto & Compliance ─► liboqs • NIST PQC (FIPS 203/204/205) • PKI / X.509 • PKCS#11 • eBPF • OpenTelemetry • DORA / NIS2
+├── Infra & Cloud ───────► Linux (RHEL/Debian) • Git • Docker • Kubernetes • AWS
+└── Spoken Languages ────► English (Advanced) • French (Learning) • Russian (Native)
+
+⌍ Validation & Milestones ⌎
+• eLearnSecurity Certified Web Penetration Tester (eWPT v1.0) | ID: 8017284
+  https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/eWPT_v1.0_Matvei_Igumnov.pdf
+• IBM Qiskit Quantum Excellence Awards | 2026, 2021, 2020
+  https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/IBM_Quantum_Excellence_2026.pdf
+• Lomonosov MSU Case-Championship Winner | Medical Analytical Platform
+  https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/MSU_Winner_Matvei_Igumnov_Team_1.pdf
+• Womanium Global Quantum Computing Program | Hardware Certificate (MIT, IBM, Princeton)
+  https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/Womanium_Quantum_2022_Matvei_Igumnov.pdf
+• QHack Coding Challenges Certificate | PennyLane / Xanadu
+  https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/QHack_Coding_Challenge_Matvei_Igumnov.pdf
+• QWorld QSilver Diploma | Complex Numbers & Shor's Algorithm | No: QSilver2-50
+  https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/QSilver2021_Matvei_Igumnov.pdf
+
+⌍ Blog ⌎
+[01] SMT verification notes for ML-KEM polynomial reduction
+     Date:  2026-10-28
+     Web:   https://iqumnov.com/#pqc-lattice-formal-verification
+     Read:  curl -sSL https://iqumnov.com/blog/pqc-lattice-formal-verification.md
+
+[02] Deobfuscating Quantum Intermediate Representation (QIR)
+     Date:  2026-09-12
+     Web:   https://iqumnov.com/#quantum-intermediate-representation-reversing
+     Read:  curl -sSL https://iqumnov.com/blog/quantum-intermediate-representation-reversing.md
+
+[03] Tracking crypto invariants with eBPF
+     Date:  2026-08-04
+     Web:   https://iqumnov.com/#ebpf-kernel-cryptographic-invariants
+     Read:  curl -sSL https://iqumnov.com/blog/ebpf-kernel-cryptographic-invariants.md
+
+================================================================================
+ (c) 2026 Matvei Igumnov • Terminal Edition • https://iqumnov.com
+================================================================================

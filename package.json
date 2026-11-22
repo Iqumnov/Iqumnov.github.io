@@ -1,0 +1,11 @@
+{
+  "name": "matvei-igumnov-portfolio",
+  "version": "1.0.0",
+  "description": "Systems, Security & Quantum Computing Engineer Portfolio",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "author": "Matvei Igumnov",
+  "license": "MIT"
+}
+

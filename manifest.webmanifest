@@ -1,0 +1,17 @@
+{
+  "name": "Matvei Igumnov // Quantum Security & Systems Defense",
+  "short_name": "Igumnov",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "description": "Quantum Security, Cryptographic Engineering, and Low-Level Systems Defense. Developing static verification tooling, kernel-level telemetry, and post-quantum cryptographic (PQC) architectures.",
+  "icons": [
+    {
+      "src": "img/pfp.webp",
+      "sizes": "192x192 512x512",
+      "type": "image/webp"
+    }
+  ]
+}
+
