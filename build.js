@@ -23,10 +23,11 @@ const INITIATIVES = [
     visit: 'https://qir-reversing.iqumnov.com'
   },
   {
-    title: 'TurtleShell Demo',
-    summary: 'Open-source numerical verification artifact for multi-tenant trapped-ion quantum computer isolation (Contour 3 — temporal laser-cooling buffers): analytical phonon dynamics validation against QuTiP Lindblad master-equation solver with <10⁻⁶ deviation (DOI: 10.5281/zenodo.21921488).',
-    stack: 'Python, QuTiP, NumPy, SciPy, Matplotlib',
-    github: 'https://github.com/Iqumnov/turtleshell-demo'
+    title: 'TurtleShell',
+    summary: 'Multi-tenant process isolation, side-channel defense & hardware benchmarking platform for shared quantum clouds: 4-contour physical mitigation (spectral QPU partitioning, compiler bytecode audit, QuTiP-verified laser cooling, telemetric SPC), QIB benchmark suite, and browser-native simulation engine (DOI: 10.5281/zenodo.21921488).',
+    stack: 'Python, FastAPI, QuTiP, Qiskit, TypeScript, React, Vite, NetworkX, Scikit-learn',
+    github: 'https://github.com/Iqumnov/TurtleShell',
+    visit: 'https://turtleshell.iqumnov.com'
   }
 ];
 
