@@ -10,21 +10,21 @@ const TERMINAL_TXT = path.join(ROOT_DIR, 'terminal.txt');
 const INITIATIVES = [
   {
     title: 'PQCanary',
-    summary: 'Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization.',
+    summary: 'Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization (DOI: 10.5281/zenodo.24527917).',
     stack: 'Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit',
     github: 'https://github.com/Iqumnov/PQCanary',
     visit: 'https://pqcanary.pages.dev'
   },
   {
     title: 'QIR Reversing',
-    summary: 'LLVM Quantum Intermediate Representation (QIR) reverse engineering & formal verification suite: algebraic commutation deobfuscator (involution collapse & Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins.',
+    summary: 'LLVM Quantum Intermediate Representation (QIR) reverse engineering & formal verification suite: algebraic commutation deobfuscator (involution collapse & Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins (DOI: 10.5281/zenodo.24528097).',
     stack: 'Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP',
     github: 'https://github.com/Iqumnov/Qir-Reversing',
     visit: 'https://qir-reversing.iqumnov.com'
   },
   {
     title: 'TurtleShell',
-    summary: 'Multi-tenant process isolation, side-channel defense & hardware benchmarking platform for shared quantum clouds: 4-contour physical mitigation (spectral QPU partitioning, compiler bytecode audit, QuTiP-verified laser cooling, telemetric SPC), QIB benchmark suite, and browser-native simulation engine (DOI: 10.5281/zenodo.21921488).',
+    summary: 'Multi-tenant process isolation, side-channel defense & hardware benchmarking platform for shared quantum clouds: 4-contour physical mitigation (spectral QPU partitioning, compiler bytecode audit, QuTiP-verified laser cooling, telemetric SPC), QIB benchmark suite, and browser-native simulation engine (DOI: 10.5281/zenodo.24528037).',
     stack: 'Python, FastAPI, QuTiP, Qiskit, TypeScript, React, Vite, NetworkX, Scikit-learn',
     github: 'https://github.com/Iqumnov/TurtleShell',
     visit: 'https://turtleshell.iqumnov.com'
