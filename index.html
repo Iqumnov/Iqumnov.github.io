@@ -121,6 +121,48 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         padding-bottom: 22px;
       }
+      .hero-top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .lang-switch-box {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.05em;
+      }
+      .lang-btn {
+        background: transparent;
+        border: 1px solid var(--border-dim);
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 3px 8px;
+        font-family: inherit;
+        font-size: 11px;
+        line-height: 1.2;
+        transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      }
+      .lang-btn:hover {
+        color: var(--text-white);
+        border-color: var(--border-bright);
+      }
+      .lang-btn.active {
+        background: var(--text-white);
+        color: #000000;
+        border-color: var(--text-white);
+        font-weight: 500;
+      }
+      .lang-sep {
+        color: var(--text-muted);
+        opacity: 0.4;
+        user-select: none;
+      }
       .identity-title {
         font-family: var(--font-heading);
         font-size: 22px;
@@ -517,7 +559,14 @@
     <main class="shell" id="main-shell">
 
       <section class="hero-section glitch-target">
-        <h1 class="identity-title">Matvei Igumnov</h1>
+        <div class="hero-top-row">
+          <h1 class="identity-title" id="hero-name">Matvei Igumnov</h1>
+          <div class="lang-switch-box" role="group" aria-label="Language selection">
+            <button type="button" class="lang-btn active" id="btn-lang-en" onclick="setLanguage('en')">EN</button>
+            <span class="lang-sep">/</span>
+            <button type="button" class="lang-btn" id="btn-lang-ru" onclick="setLanguage('ru')">RU</button>
+          </div>
+        </div>
         <div class="hero-bar">
           <div class="social-icons">
             <a href="https://github.com/Iqumnov" target="_blank" rel="noopener noreferrer" class="icon-btn" title="GitHub" aria-label="GitHub">
@@ -579,31 +628,31 @@
             <img src="img/pfp.webp" alt="Matvei Igumnov" class="overview-photo" width="240" height="320" loading="eager" decoding="sync" fetchpriority="high" />
           </div>
           <div class="overview-content">
-            <div class="section-marker">⌍ Overview ⌎</div>
-            <p>
+            <div class="section-marker" id="marker-overview">⌍ Overview ⌎</div>
+            <p id="overview-desc">
               Quantum Security, Cryptographic Engineering, and Low-Level Systems Defense. Developing static verification tooling, kernel-level telemetry, and post-quantum cryptographic (PQC) architectures.
             </p>
             <ul class="bullet-list">
-              <li><strong>Education:</strong> B.S. in Information Security, Moscow Polytechnic University (Expected 2027).</li>
-              <li>Co-founder &amp; curator at <a href="https://ourdynasty.art" target="_blank" rel="noopener noreferrer" class="cert-link">Our Dynasty Art</a> — gallery &amp; collection spanning five generations of family artists.</li>
+              <li id="overview-edu"><strong>Education:</strong> B.S. in Information Security, Moscow Polytechnic University (Expected 2027).</li>
+              <li id="overview-art">Co-founder &amp; curator at <a href="https://ourdynasty.art" target="_blank" rel="noopener noreferrer" class="cert-link">Our Dynasty Art</a> — gallery &amp; collection spanning five generations of family artists.</li>
             </ul>
           </div>
         </div>
       </section>
 
       <section>
-        <div class="section-marker glitch-target">⌍ Core Initiatives ⌎</div>
+        <div class="section-marker glitch-target" id="marker-initiatives">⌍ Core Initiatives ⌎</div>
         <div id="initiatives-container">
           <div class="initiative-card glitch-target">
             <div class="initiative-header">
               <span class="initiative-name">PQCanary</span>
               <div class="project-actions">
                 <a href="https://github.com/Iqumnov/PQCanary" target="_blank" rel="noopener noreferrer" class="project-link">GitHub ↗</a>
-                <a href="https://pqcanary.pages.dev" target="_blank" rel="noopener noreferrer" class="project-link">Visit ↗</a>
+                <a href="https://pqcanary.pages.dev" target="_blank" rel="noopener noreferrer" class="project-link visit-link">Visit ↗</a>
               </div>
             </div>
-            <div class="initiative-desc">Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization (DOI: 10.5281/zenodo.24527917).</div>
-            <div class="initiative-stack"><strong>Stack:</strong> Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit</div>
+            <div class="initiative-desc" id="desc-pqcanary">Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization (DOI: 10.5281/zenodo.24527917).</div>
+            <div class="initiative-stack" id="stack-pqcanary"><strong>Stack:</strong> Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit</div>
           </div>
 
           <div class="initiative-card glitch-target">
@@ -611,11 +660,11 @@
               <span class="initiative-name">QIR Reversing</span>
               <div class="project-actions">
                 <a href="https://github.com/Iqumnov/Qir-Reversing" target="_blank" rel="noopener noreferrer" class="project-link">GitHub ↗</a>
-                <a href="https://qir-reversing.iqumnov.com" target="_blank" rel="noopener noreferrer" class="project-link">Visit ↗</a>
+                <a href="https://qir-reversing.iqumnov.com" target="_blank" rel="noopener noreferrer" class="project-link visit-link">Visit ↗</a>
               </div>
             </div>
-            <div class="initiative-desc">LLVM Quantum Intermediate Representation (QIR) reverse engineering &amp; formal verification suite: algebraic commutation deobfuscator (involution collapse &amp; Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins (DOI: 10.5281/zenodo.24528097).</div>
-            <div class="initiative-stack"><strong>Stack:</strong> Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP</div>
+            <div class="initiative-desc" id="desc-qir">LLVM Quantum Intermediate Representation (QIR) reverse engineering &amp; formal verification suite: algebraic commutation deobfuscator (involution collapse &amp; Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins (DOI: 10.5281/zenodo.24528097).</div>
+            <div class="initiative-stack" id="stack-qir"><strong>Stack:</strong> Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP</div>
           </div>
 
           <div class="initiative-card glitch-target">
@@ -623,18 +672,18 @@
               <span class="initiative-name">TurtleShell</span>
               <div class="project-actions">
                 <a href="https://github.com/Iqumnov/TurtleShell" target="_blank" rel="noopener noreferrer" class="project-link">GitHub ↗</a>
-                <a href="https://turtleshell.iqumnov.com" target="_blank" rel="noopener noreferrer" class="project-link">Visit ↗</a>
+                <a href="https://turtleshell.iqumnov.com" target="_blank" rel="noopener noreferrer" class="project-link visit-link">Visit ↗</a>
               </div>
             </div>
-            <div class="initiative-desc">Multi-tenant process isolation, side-channel defense &amp; hardware benchmarking platform for shared quantum clouds: 4-contour physical mitigation (spectral QPU partitioning, compiler bytecode audit, QuTiP-verified laser cooling, telemetric SPC), QIB benchmark suite, and browser-native simulation engine (DOI: 10.5281/zenodo.24528037).</div>
-            <div class="initiative-stack"><strong>Stack:</strong> Python, FastAPI, QuTiP, Qiskit, TypeScript, React, Vite, NetworkX, Scikit-learn</div>
+            <div class="initiative-desc" id="desc-turtleshell">Multi-tenant process isolation, side-channel defense &amp; hardware benchmarking platform for shared quantum clouds: 4-contour physical mitigation (spectral QPU partitioning, compiler bytecode audit, QuTiP-verified laser cooling, telemetric SPC), QIB benchmark suite, and browser-native simulation engine (DOI: 10.5281/zenodo.24528037).</div>
+            <div class="initiative-stack" id="stack-turtleshell"><strong>Stack:</strong> Python, FastAPI, QuTiP, Qiskit, TypeScript, React, Vite, NetworkX, Scikit-learn</div>
           </div>
         </div>
       </section>
 
       <section>
-        <div class="section-marker">⌍ Technical Skills ⌎</div>
-        <div class="ascii-tree">┌── Languages ───────────► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
+        <div class="section-marker" id="marker-skills">⌍ Technical Skills ⌎</div>
+        <div class="ascii-tree" id="skills-ascii">┌── Languages ───────────► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
 ├── Security &amp; Backend ──► Spring Boot • Spring Security • Quarkus • Bouncy Castle (JCA/PQC) • Keycloak • gRPC
 ├── Quantum &amp; Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Z3 SMT
 ├── Crypto &amp; Compliance ─► liboqs • NIST PQC (FIPS 203/204/205) • PKI / X.509 • PKCS#11 • eBPF • OpenTelemetry • DORA / NIS2
@@ -643,8 +692,8 @@
       </section>
 
       <section>
-        <div class="section-marker">⌍ Validation &amp; Milestones ⌎</div>
-        <ul class="bullet-list">
+        <div class="section-marker" id="marker-milestones">⌍ Validation &amp; Milestones ⌎</div>
+        <ul class="bullet-list" id="milestones-list">
           <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/eWPT_v1.0_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">eLearnSecurity Certified Web Penetration Tester (eWPT v1.0)</a> | ID: 8017284</li>
           <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/IBM_Quantum_Excellence_2026.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">IBM Qiskit Quantum Excellence Awards</a> | 2026, 2021, 2020 (Qiskit Global Summer School)</li>
           <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/MSU_Winner_Matvei_Igumnov_Team_1.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Lomonosov MSU Case-Championship Winner</a> | Medical Analytical Platform (Healthy Technologies)</li>
@@ -655,23 +704,23 @@
       </section>
 
       <section id="dispatches-section">
-        <div class="section-marker">⌍ Blog ⌎</div>
+        <div class="section-marker" id="marker-blog">⌍ Blog ⌎</div>
         <ul class="dispatch-list" id="dispatch-list">
 <!-- DISPATCHES_START -->
 
           <li class="dispatch-item" tabindex="0" role="button" aria-expanded="false" onclick="openBlogPost('pqc-lattice-formal-verification', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openBlogPost('pqc-lattice-formal-verification', event);}">
             <span class="dispatch-date">2026-10-28</span>
-            <span class="dispatch-title-link">SMT verification notes for ML-KEM polynomial reduction</span>
+            <span class="dispatch-title-link" id="title-pqc-lattice-formal-verification">SMT verification notes for ML-KEM polynomial reduction</span>
           </li>
 
           <li class="dispatch-item" tabindex="0" role="button" aria-expanded="false" onclick="openBlogPost('quantum-intermediate-representation-reversing', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openBlogPost('quantum-intermediate-representation-reversing', event);}">
             <span class="dispatch-date">2026-09-12</span>
-            <span class="dispatch-title-link">Deobfuscating Quantum Intermediate Representation (QIR)</span>
+            <span class="dispatch-title-link" id="title-quantum-intermediate-representation-reversing">Deobfuscating Quantum Intermediate Representation (QIR)</span>
           </li>
 
           <li class="dispatch-item" tabindex="0" role="button" aria-expanded="false" onclick="openBlogPost('ebpf-kernel-cryptographic-invariants', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openBlogPost('ebpf-kernel-cryptographic-invariants', event);}">
             <span class="dispatch-date">2026-08-04</span>
-            <span class="dispatch-title-link">Tracking crypto invariants with eBPF</span>
+            <span class="dispatch-title-link" id="title-ebpf-kernel-cryptographic-invariants">Tracking crypto invariants with eBPF</span>
           </li>
         <!-- DISPATCHES_END -->
         </ul>
@@ -679,7 +728,7 @@
 <!-- ARTICLES_START -->
 
         <article class="article-reader" id="reader-pqc-lattice-formal-verification">
-          <div class="md-body">
+          <div class="md-body" id="body-pqc-lattice-formal-verification">
             <h1>SMT verification notes for ML-KEM polynomial reduction</h1><p>In post-quantum schemes like ML-KEM (Kyber), side-channel attacks like KyberSlash don't attack the lattice math—they target small timing discrepancies during modular reduction and Number Theoretic Transform (NTT) butterfly loops.</p><p>In <strong>PQCanary</strong>, we use the Z3 SMT solver to statically check polynomial arithmetic for out-of-bounds values and secret-dependent branches.</p><hr />
 <h2>1. Checking Layer by Layer</h2><p>Polynomial operations in ML-KEM work over $R_q = \mathbb{Z}_q[X]/(X^{256} + 1)$ with $q = 3329$.</p><p>Trying to verify an entire 256-point NTT in an SMT solver all at once blows up into too many bitvector clauses and times out. Instead, we verify inductively: checking each butterfly step and modular reduction separately to confirm that coefficients stay strictly within $[-q/2, q/2]$.</p><hr />
 <h2>2. Symbolic Range Check in Z3</h2><p>Here is a simplified example checking Montgomery reduction bounds in Rust with Z3:</p><pre><code class="language-rust">use z3::ast::{Ast, BV};
@@ -722,7 +771,7 @@ pub fn check_montgomery_bounds() -&gt; Result&lt;(), String&gt; {
         </article>
 
         <article class="article-reader" id="reader-quantum-intermediate-representation-reversing">
-          <div class="md-body">
+          <div class="md-body" id="body-quantum-intermediate-representation-reversing">
             <h1>Deobfuscating Quantum Intermediate Representation (QIR)</h1><p>QIR compiles quantum circuits into LLVM IR by emitting quantum gates as external calls (like <code>@__quantum__qis__h__body</code> or <code>@__quantum__qis__cnot__body</code>).</p><p>During compilation and transpilation, circuits often end up with redundant gates, reordered operations, or continuous rotation gadgets that make the circuit hard to inspect.</p><p>In <strong>QIR Reversing</strong>, we parse the bitcode, clean up the circuit using basic quantum commutation rules, and check that the resulting circuit has the exact same unitary behavior.</p><hr />
 <h2>1. Commutation Rules</h2><p>If two gates commute ($[A, B] = AB - BA = 0$), they can swap order along qubit wires without changing the circuit's action:
 <ul><li><strong>Disjoint wires:</strong> Gates on separate qubits always commute: $[A \otimes I, I \otimes B] = 0$.</li><li><strong>Phase gates:</strong> Diagonal gates in the computational basis commute: $[Z, S] = [S, T] = [R_z(\alpha), R_z(\beta)] = 0$.</li><li><strong>Controlled gates:</strong> $CX$ commutes with $Z$ on control and $X$ on target.</li></ul></p><p>Sliding commuting gates together lets us cancel inverse pairs ($H \cdot H = I$, $CX \cdot CX = I$) and combine rotation angles ($R_z(\alpha) \cdot R_z(\beta) = R_z(\alpha + \beta)$).</p><pre><code class="language-rust">// Quick check if two multi-qubit Pauli operators commute
@@ -742,7 +791,7 @@ pub fn commutes(g1: &amp;PauliGate, g2: &amp;PauliGate) -&gt; bool {
         </article>
 
         <article class="article-reader" id="reader-ebpf-kernel-cryptographic-invariants">
-          <div class="md-body">
+          <div class="md-body" id="body-ebpf-kernel-cryptographic-invariants">
             <h1>Tracking crypto invariants with eBPF</h1><p>Auditing crypto calls from user space using <code>LD_PRELOAD</code> doesn't work for statically linked Go or Rust binaries, or when applications call syscalls like <code>SYS_keyctl</code> or <code>AF_ALG</code> directly.</p><p>Using eBPF lets you attach probes to kernel crypto functions without modifying the target applications or slowing down the system.</p><hr />
 <h2>1. Checking for Nonce/IV Reuse</h2><p>In ciphers like AES-GCM, reusing an initialization vector (IV) under the same key completely breaks authentication and lets an attacker recover the hash key.</p><p>With eBPF, we can record seen <code>(key, nonce)</code> pairs in a BPF hash map and emit an alert if a duplicate is observed:</p><pre><code class="language-c">// SPDX-License-Identifier: GPL-2.0
 #include &lt;vmlinux.h&gt;
@@ -797,7 +846,7 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
       </section>
 
       <footer class="minimal-footer">
-        <span>&copy; 2026 Matvei Igumnov</span>
+        <span id="footer-copy">&copy; 2026 Matvei Igumnov</span>
       </footer>
 
     </main>
@@ -957,6 +1006,293 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
           navigator.serviceWorker.register('./sw.js').catch(() => {});
         });
       }
-    </script>
+    
+      // ==========================================
+      // 6. Comprehensive English / Russian i18n
+      // ==========================================
+      const I18N = {
+        en: {
+          page_title: "Matvei Igumnov // Quantum Security & Systems Defense",
+          hero_name: "Matvei Igumnov",
+          marker_overview: "⌍ Overview ⌎",
+          overview_desc: "Quantum Security, Cryptographic Engineering, and Low-Level Systems Defense. Developing static verification tooling, kernel-level telemetry, and post-quantum cryptographic (PQC) architectures.",
+          overview_edu: "<strong>Education:</strong> B.S. in Information Security, Moscow Polytechnic University (Expected 2027).",
+          overview_art: 'Co-founder &amp; curator at <a href="https://ourdynasty.art" target="_blank" rel="noopener noreferrer" class="cert-link">Our Dynasty Art</a> — gallery &amp; collection spanning five generations of family artists.',
+          marker_initiatives: "⌍ Core Initiatives ⌎",
+          desc_pqcanary: "Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization (DOI: 10.5281/zenodo.24527917).",
+          stack_pqcanary: "<strong>Stack:</strong> Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit",
+          desc_qir: "LLVM Quantum Intermediate Representation (QIR) reverse engineering &amp; formal verification suite: algebraic commutation deobfuscator (involution collapse &amp; Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins (DOI: 10.5281/zenodo.24528097).",
+          stack_qir: "<strong>Stack:</strong> Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP",
+          desc_turtleshell: "Multi-tenant process isolation, side-channel defense &amp; hardware benchmarking platform for shared quantum clouds: 4-contour physical mitigation (spectral QPU partitioning, compiler bytecode audit, QuTiP-verified laser cooling, telemetric SPC), QIB benchmark suite, and browser-native simulation engine (DOI: 10.5281/zenodo.24528037).",
+          stack_turtleshell: "<strong>Stack:</strong> Python, FastAPI, QuTiP, Qiskit, TypeScript, React, Vite, NetworkX, Scikit-learn",
+          visit_links: "Visit ↗",
+          marker_skills: "⌍ Technical Skills ⌎",
+          skills_ascii: `┌── Languages ───────────► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
+├── Security & Backend ──► Spring Boot • Spring Security • Quarkus • Bouncy Castle (JCA/PQC) • Keycloak • gRPC
+├── Quantum & Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Z3 SMT
+├── Crypto & Compliance ─► liboqs • NIST PQC (FIPS 203/204/205) • PKI / X.509 • PKCS#11 • eBPF • OpenTelemetry • DORA / NIS2
+├── Infra & Cloud ───────► Linux (RHEL/Debian) • Git • Docker • Kubernetes • AWS
+└── Spoken Languages ────► English (Advanced) • French (Learning) • Russian (Native)`,
+          marker_milestones: "⌍ Validation & Milestones ⌎",
+          milestones_html: `<li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/eWPT_v1.0_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">eLearnSecurity Certified Web Penetration Tester (eWPT v1.0)</a> | ID: 8017284</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/IBM_Quantum_Excellence_2026.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">IBM Qiskit Quantum Excellence Awards</a> | 2026, 2021, 2020 (Qiskit Global Summer School)</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/MSU_Winner_Matvei_Igumnov_Team_1.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Lomonosov MSU Case-Championship Winner</a> | Medical Analytical Platform (Healthy Technologies)</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/Womanium_Quantum_2022_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Womanium Global Quantum Computing Program</a> | Hardware Certificate (MIT, IBM, Princeton Partnership)</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/QHack_Coding_Challenge_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">QHack Coding Challenges Certificate</a> | PennyLane / Xanadu</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/QSilver2021_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">QWorld QSilver Diploma</a> | Complex Numbers &amp; Shor’s Algorithm | No: QSilver2-50</li>`,
+          marker_blog: "⌍ Blog ⌎",
+          blog_titles: {
+            "pqc-lattice-formal-verification": "SMT verification notes for ML-KEM polynomial reduction",
+            "quantum-intermediate-representation-reversing": "Deobfuscating Quantum Intermediate Representation (QIR)",
+            "ebpf-kernel-cryptographic-invariants": "Tracking crypto invariants with eBPF"
+          },
+          footer_copy: "&copy; 2026 Matvei Igumnov"
+        },
+        ru: {
+          page_title: "Матвей Игумнов // Квантовая безопасность и защита систем",
+          hero_name: "Матвей Игумнов",
+          marker_overview: "⌍ Описание ⌎",
+          overview_desc: "Квантовая безопасность, криптографическая инженерия и низкоуровневая защита систем. Разработка инструментов статической верификации, телеметрии уровня ядра и архитектур постквантовой криптографии (PQC).",
+          overview_edu: "<strong>Образование:</strong> Бакалавр по направлению «Информационная безопасность», Московский политехнический университет (выпуск 2027).",
+          overview_art: 'Сооснователь и куратор <a href="https://ourdynasty.art" target="_blank" rel="noopener noreferrer" class="cert-link">Our Dynasty Art</a> — художественная галерея и фамильное собрание пяти поколений художников династии.',
+          marker_initiatives: "⌍ Ключевые проекты ⌎",
+          desc_pqcanary: "Корпоративная платформа аудита, верификации и автоматизированной миграции на постквантовую криптографию (PQC): генерация CBOM (NIST FIPS 203/204/205), формальная Z3 SMT верификация границ константного времени полиномиальной редукции в решетках (защита от KyberSlash) и автоматическая модернизация AST (DOI: 10.5281/zenodo.24527917).",
+          stack_pqcanary: "<strong>Стек:</strong> Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit",
+          desc_qir: "Комплекс обратной разработки и формальной верификации квантового промежуточного представления LLVM QIR: алгебраический деобфускатор коммутации (схлопывание инволюций и объединение вращений групп Ли), верификация точности квантового процесса в 2^N-мерном гильбертовом пространстве (F=1.0) с доказательствами в Lean 4 и нативные плагины для Rizin/Cutter (DOI: 10.5281/zenodo.24528097).",
+          stack_qir: "<strong>Стек:</strong> Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP",
+          desc_turtleshell: "Платформа многоарендной изоляции процессов, защиты от атак по побочным каналам и аппаратного бенчмаркинга для квантовых облаков: 4-контурная физическая защита (спектральное разбиение QPU, аудит байткода компилятора, верифицированное в QuTiP лазерное охлаждение, телеметрический SPC), бенчмарк-комплекс QIB и автономный браузерный симулятор (DOI: 10.5281/zenodo.24528037).",
+          stack_turtleshell: "<strong>Стек:</strong> Python, FastAPI, QuTiP, Qiskit, TypeScript, React, Vite, NetworkX, Scikit-learn",
+          visit_links: "Сайт ↗",
+          marker_skills: "⌍ Технические навыки ⌎",
+          skills_ascii: `┌── Языки программирования ──► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
+├── Безопасность и бэкенд ──► Spring Boot • Spring Security • Quarkus • Bouncy Castle (JCA/PQC) • Keycloak • gRPC
+├── Квантовые вычисления ───► Qiskit • PennyLane • ETSI GS QKD 014 • Z3 SMT
+├── Криптография и аудит ───► liboqs • NIST PQC (FIPS 203/204/205) • PKI / X.509 • PKCS#11 • eBPF • OpenTelemetry • DORA / NIS2
+├── Инфраструктура и облака ─► Linux (RHEL/Debian) • Git • Docker • Kubernetes • AWS
+└── Языки общения ──────────► Русский (родной) • Английский (продвинутый) • Французский (изучаю)`,
+          marker_milestones: "⌍ Сертификаты и достижения ⌎",
+          milestones_html: `<li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/eWPT_v1.0_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Сертифицированный специалист по веб-тестированию на проникновение eLearnSecurity (eWPT v1.0)</a> | ID: 8017284</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/IBM_Quantum_Excellence_2026.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Награды IBM Qiskit Quantum Excellence Awards</a> | 2026, 2021, 2020 (Летняя школа Qiskit)</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/MSU_Winner_Matvei_Igumnov_Team_1.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Победитель кейс-чемпионата МГУ им. М.В. Ломоносова</a> | Медицинская аналитическая платформа (Здоровые технологии)</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/Womanium_Quantum_2022_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Глобальная квантовая программа Womanium</a> | Сертификат по квантовому оборудованию (MIT, IBM, Princeton)</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/QHack_Coding_Challenge_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Сертификат соревнований по квантовому программированию QHack</a> | PennyLane / Xanadu</li>
+          <li><a href="https://github.com/Iqumnov/Iqumnov/blob/main/Certifications/QSilver2021_Matvei_Igumnov.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">Диплом QWorld QSilver</a> | Комплексные числа и алгоритм Шора | №: QSilver2-50</li>`,
+          marker_blog: "⌍ Исследования и статьи ⌎",
+          blog_titles: {
+            "pqc-lattice-formal-verification": "Заметки по SMT-верификации полиномиальной редукции в ML-KEM",
+            "quantum-intermediate-representation-reversing": "Деобфускация квантового промежуточного представления (QIR)",
+            "ebpf-kernel-cryptographic-invariants": "Отслеживание криптографических инвариантов с помощью eBPF"
+          },
+          footer_copy: "&copy; 2026 Матвей Игумнов"
+        }
+      };
+
+      const ARTICLES_RU = {
+        "pqc-lattice-formal-verification": `<h1>Заметки по SMT-верификации полиномиальной редукции в ML-KEM</h1><p>В схемах постквантовой криптографии, таких как ML-KEM (Kyber), атаки по побочным каналам (например, KyberSlash) направлены не на математическую структуру решеток, а на минимальные временные расхождения при модульной редукции и в циклах «бабочек» теоретико-числового преобразования (NTT).</p><p>В проекте <strong>PQCanary</strong> мы используем SMT-солвер Z3 для статической проверки полиномиальной арифметики на предмет выхода за границы диапазонов и наличия ветвлений, зависящих от секретных данных.</p><hr />
+<h2>1. Послойная индуктивная проверка</h2><p>Полиномиальные операции в ML-KEM выполняются над кольцом $R_q = \mathbb{Z}_q[X]/(X^{256} + 1)$ с $q = 3329$.</p><p>Попытка верифицировать все 256-точечное NTT в SMT-солвере за один проход приводит к комбинаторному взрыву битовых ограничений и превышению таймаута. Вместо этого мы верифицируем преобразование индуктивно: проверяя каждый шаг «бабочки» и модульной редукции по отдельности, чтобы гарантировать, что коэффициенты строго остаются в интервале $[-q/2, q/2]$.</p><hr />
+<h2>2. Символическая проверка диапазонов в Z3</h2><p>Упрощенный пример проверки границ редукции Монтгомери на Rust с использованием Z3:</p><pre><code class="language-rust">use z3::ast::{Ast, BV};
+use z3::{Config, Context, SatResult, Solver};
+
+pub fn check_montgomery_bounds() -&gt; Result&lt;(), String&gt; {
+    let cfg = Config::new();
+    let ctx = Context::new(&amp;cfg);
+    let solver = Solver::new(&amp;ctx);
+
+    let q = BV::from_i64(&amp;ctx, 3329, 32);
+    let half_q = BV::from_i64(&amp;ctx, 1664, 32);
+    let neg_half_q = BV::from_i64(&amp;ctx, -1664, 32);
+
+    // Символический промежуточный результат умножения
+    let input = BV::new_const(&amp;ctx, "prod", 32);
+
+    // Константная по времени редукция Монтгомери: (a - ((a * QINV) &amp; 0xFFFF) * q) &gt;&gt; 16
+    let qinv = BV::from_i64(&amp;ctx, -3327, 32);
+    let mask = BV::from_i64(&amp;ctx, 0xFFFF, 32);
+    let t = input.bvmul(&amp;qinv).bvand(&amp;mask);
+    let reduced = input.bvsub(&amp;t.bvmul(&amp;q)).bvashr(&amp;BV::from_i64(&amp;ctx, 16, 32));
+
+    // Требуемый диапазон: -q/2 &lt;= reduced &lt;= q/2
+    let in_bounds = reduced.bvsge(&amp;neg_half_q)._and(&amp;[&amp;reduced.bvsle(&amp;half_q)]);
+
+    // Проверяем, существует ли вход, нарушающий границу (отрицание выполнимо)
+    solver.assert(&amp;in_bounds.not());
+    match solver.check() {
+        SatResult::Unsat =&gt; Ok(()), // Доказано: ни один вход не выходит за границы
+        SatResult::Sat =&gt; Err("Обнаружено нарушение границ".into()),
+        SatResult::Unknown =&gt; Err("Таймаут солвера".into()),
+    }
+}
+</code></pre><hr />
+<h2>3. Инварианты памяти и ветвления</h2><p>Мы также проверяем, что адреса чтения памяти в проходах NTT не зависят от значений секретных полиномов:
+<ul><li>Проверка отсутствия условных переходов (<code>br i1</code>) по помеченным секретом переменным.</li><li>Утверждение, что смещения загрузки удовлетворяют $\frac{\partial \text{offset}}{\partial \text{secret}} = 0$.</li></ul></p><p>Это позволяет статически обнаружить тонкие утечки по времени до проведения эмпирических тестов по побочным каналам.</p>`,
+
+        "quantum-intermediate-representation-reversing": `<h1>Деобфускация квантового промежуточного представления (QIR)</h1><p>QIR компилирует квантовые схемы в LLVM IR, представляя квантовые вентили в виде внешних вызовов (например, <code>@__quantum__qis__h__body</code> или <code>@__quantum__qis__cnot__body</code>).</p><p>В процессе компиляции и транспиляции схемы нередко насыщаются избыточными вентилями, переупорядоченными операциями или непрерывными вращательными гаджетами, затрудняющими их анализ.</p><p>В проекте <strong>QIR Reversing</strong> мы парсим биткод, очищаем квантовую схему на основе фундаментальных правил квантовой коммутации и проверяем строгое сохранение унитарного поведения результирующей схемы.</p><hr />
+<h2>1. Правила коммутации</h2><p>Если два вентиля коммутируют ($[A, B] = AB - BA = 0$), их порядок на квантовых проводах можно изменять без изменения действия схемы:</p><ul><li><strong>Непересекающиеся провода:</strong> Вентили на раздельных кубитах всегда коммутируют: $[A \otimes I, I \otimes B] = 0$.</li><li><strong>Фазовые вентили:</strong> Диагональные в вычислительном базисе вентили коммутируют: $[Z, S] = [S, T] = [R_z(\alpha), R_z(\beta)] = 0$.</li><li><strong>Контролируемые вентили:</strong> Вентиль $CX$ коммутирует с $Z$ на управляющем кубите и с $X$ на целевом кубите.</li></ul><p>Продвижение коммутирующих вентилей навстречу друг другу позволяет взаимно уничтожать самообратные пары ($H \cdot H = I$, $CX \cdot CX = I$) и объединять углы непрерывных вращений ($R_z(\alpha) \cdot R_z(\beta) = R_z(\alpha + \beta)$).</p><pre><code class="language-rust">// Проверка коммутации двух многокубитных операторов Паули
+pub fn commutes(g1: &amp;PauliGate, g2: &amp;PauliGate) -&gt; bool {
+    let mut anticommuting_pairs = 0;
+    for (p1, p2) in g1.qubits.iter().zip(g2.qubits.iter()) {
+        if p1.anticommutes_with(p2) {
+            anticommuting_pairs += 1;
+        }
+    }
+    anticommuting_pairs % 2 == 0
+}
+</code></pre><hr />
+<h2>2. Унитарная верификация</h2><p>Чтобы гарантировать, что оптимизация не нарушила алгоритм, мы вычисляем полную унитарную матрицу $U \in \mathbb{C}^{2^N \times 2^N}$ и проверяем точность квантового процесса (Process Fidelity):</p><p>$$F(U_{\text{orig}}, U_{\text{clean}}) = \frac{1}{d^2} \left| \text{Tr}(U_{\text{orig}}^\dagger U_{\text{clean}}) \right|^2$$</p><p>где $d = 2^N$. Значение $F = 1.00000000$ подтверждает полную идентичность физического преобразования.</p><p>Мы также создали нативный C-ABI плагин для Rizin и Cutter (<code>librz_qir.so</code>), позволяющий открывать биткод <code>.bc</code> и анализировать очищенные схемы непосредственно в дисассемблере.</p>`,
+
+        "ebpf-kernel-cryptographic-invariants": `<h1>Отслеживание криптографических инвариантов с помощью eBPF</h1><p>Аудит криптографических вызовов из пользовательского пространства с помощью <code>LD_PRELOAD</code> неприменим для статически скомпилированных бинарных файлов на Go или Rust, а также когда приложения напрямую вызывают системные вызовы ядра, такие как <code>SYS_keyctl</code> или <code>AF_ALG</code>.</p><p>Использование eBPF позволяет внедрять зонды в функции криптографической подсистемы ядра Linux без изменения целевых приложений и без снижения производительности системы.</p><hr />
+<h2>1. Контроль повторного использования Nonce/IV</h2><p>В режимах шифрования, таких как AES-GCM, повторное использование вектора инициализации (IV) с одним и тем же ключом полностью разрушает аутентичность и позволяет злоумышленнику восстановить ключ аутентификации.</p><p>С помощью eBPF мы можем регистрировать пары <code>(key, nonce)</code> в хэш-таблице BPF и генерировать оповещение при обнаружении дубликата:</p><pre><code class="language-c">// SPDX-License-Identifier: GPL-2.0
+#include &lt;vmlinux.h&gt;
+#include &lt;bpf/bpf_helpers.h&gt;
+#include &lt;bpf/bpf_tracing.h&gt;
+
+struct crypto_event_t {
+    __u32 pid;
+    __u32 uid;
+    char comm[16];
+    char cipher_name[32];
+};
+
+struct {
+    __uint(type, BPF_MAP_TYPE_HASH);
+    __uint(max_entries, 65536);
+    __type(key, __u64);
+    __type(value, __u32);
+} iv_map SEC(".maps");
+
+struct {
+    __uint(type, BPF_MAP_TYPE_RINGBUF);
+    __uint(max_entries, 256 * 1024);
+} ringbuf SEC(".maps");
+
+SEC("kprobe/crypto_alloc_skcipher")
+int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
+    char name[32] = {};
+    bpf_probe_read_kernel_str(name, sizeof(name), alg_name);
+
+    // Выявление устаревших или неаутентифицированных режимов (ECB, DES)
+    if (name[0] == 'e' &amp;&amp; name[1] == 'c' &amp;&amp; name[2] == 'b') {
+        struct crypto_event_t *event = bpf_ringbuf_reserve(&amp;ringbuf, sizeof(*event), 0);
+        if (!event) return 0;
+
+        event-&gt;pid = bpf_get_current_pid_tgid() &gt;&gt; 32;
+        event-&gt;uid = bpf_get_current_uid_gid();
+        bpf_get_current_comm(&amp;event-&gt;comm, sizeof(event-&gt;comm));
+        bpf_probe_read_kernel_str(event-&gt;cipher_name, sizeof(event-&gt;cipher_name), name);
+
+        bpf_ringbuf_submit(event, 0);
+    }
+    return 0;
+}
+</code></pre><hr />
+<h2>2. Минимальные накладные расходы благодаря кольцевым буферам</h2><p>События передаются в пользовательское пространство через кольцевые буферы BPF (<code>BPF_MAP_TYPE_RINGBUF</code>). Будучи неблокирующим кольцевым буфером в разделяемой памяти между ядрами процессора, он эффективно справляется со всплесками нагрузки без потерь событий и не увеличивает задержки шифрования трафика.</p>`
+      };
+
+      // Cache original English articles from initial render
+      const ARTICLES_EN = {};
+
+      function setLanguage(lang) {
+        if (!I18N[lang]) return;
+        localStorage.setItem("user_lang", lang);
+        document.documentElement.lang = lang;
+
+        // Toggle button states
+        const btnEn = document.getElementById("btn-lang-en");
+        const btnRu = document.getElementById("btn-lang-ru");
+        if (btnEn && btnRu) {
+          if (lang === "ru") {
+            btnEn.classList.remove("active");
+            btnRu.classList.add("active");
+          } else {
+            btnRu.classList.remove("active");
+            btnEn.classList.add("active");
+          }
+        }
+
+        const data = I18N[lang];
+        document.title = data.page_title;
+
+        // Hero & Overview
+        const heroName = document.getElementById("hero-name");
+        if (heroName) heroName.textContent = data.hero_name;
+
+        const mOverview = document.getElementById("marker-overview");
+        if (mOverview) mOverview.textContent = data.marker_overview;
+
+        const oDesc = document.getElementById("overview-desc");
+        if (oDesc) oDesc.textContent = data.overview_desc;
+
+        const oEdu = document.getElementById("overview-edu");
+        if (oEdu) oEdu.innerHTML = data.overview_edu;
+
+        const oArt = document.getElementById("overview-art");
+        if (oArt) oArt.innerHTML = data.overview_art;
+
+        // Core Initiatives
+        const mInit = document.getElementById("marker-initiatives");
+        if (mInit) mInit.textContent = data.marker_initiatives;
+
+        const dPqc = document.getElementById("desc-pqcanary");
+        if (dPqc) dPqc.textContent = data.desc_pqcanary;
+        const sPqc = document.getElementById("stack-pqcanary");
+        if (sPqc) sPqc.innerHTML = data.stack_pqcanary;
+
+        const dQir = document.getElementById("desc-qir");
+        if (dQir) dQir.textContent = data.desc_qir;
+        const sQir = document.getElementById("stack-qir");
+        if (sQir) sQir.innerHTML = data.stack_qir;
+
+        const dTurtle = document.getElementById("desc-turtleshell");
+        if (dTurtle) dTurtle.textContent = data.desc_turtleshell;
+        const sTurtle = document.getElementById("stack-turtleshell");
+        if (sTurtle) sTurtle.innerHTML = data.stack_turtleshell;
+
+        document.querySelectorAll(".visit-link").forEach(el => {
+          el.textContent = data.visit_links;
+        });
+
+        // Skills
+        const mSkills = document.getElementById("marker-skills");
+        if (mSkills) mSkills.textContent = data.marker_skills;
+        const skillsAscii = document.getElementById("skills-ascii");
+        if (skillsAscii) skillsAscii.textContent = data.skills_ascii;
+
+        // Milestones
+        const mMilestones = document.getElementById("marker-milestones");
+        if (mMilestones) mMilestones.textContent = data.marker_milestones;
+        const mList = document.getElementById("milestones-list");
+        if (mList) mList.innerHTML = data.milestones_html;
+
+        // Blog Dispatches & Articles
+        const mBlog = document.getElementById("marker-blog");
+        if (mBlog) mBlog.textContent = data.marker_blog;
+
+        Object.keys(data.blog_titles).forEach(id => {
+          const titleEl = document.getElementById("title-" + id);
+          if (titleEl) titleEl.textContent = data.blog_titles[id];
+
+          const bodyEl = document.getElementById("body-" + id);
+          if (bodyEl) {
+            if (!ARTICLES_EN[id]) {
+              ARTICLES_EN[id] = bodyEl.innerHTML;
+            }
+            bodyEl.innerHTML = lang === "ru" ? ARTICLES_RU[id] : ARTICLES_EN[id];
+          }
+        });
+
+        const fCopy = document.getElementById("footer-copy");
+        if (fCopy) fCopy.innerHTML = data.footer_copy;
+
+        if (lenis) {
+          lenis.resize();
+        }
+      }
+
+      // Initialize language from storage or navigator
+      const savedLang = localStorage.getItem("user_lang") || (navigator.language && navigator.language.startsWith("ru") ? "ru" : "en");
+      if (savedLang === "ru") {
+        setLanguage("ru");
+      }
+</script>
   </body>
 </html>

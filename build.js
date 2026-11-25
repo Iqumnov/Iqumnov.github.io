@@ -228,12 +228,12 @@ function build() {
   const dispatchesHtml = blogPosts.map(p => `
           <li class="dispatch-item" tabindex="0" role="button" aria-expanded="false" onclick="openBlogPost('${p.id}', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openBlogPost('${p.id}', event);}">
             <span class="dispatch-date">${p.date || ''}</span>
-            <span class="dispatch-title-link">${p.title}</span>
+            <span class="dispatch-title-link" id="title-${p.id}">${p.title}</span>
           </li>`).join('\n');
 
   const articlesHtml = blogPosts.map(p => `
         <article class="article-reader" id="reader-${p.id}">
-          <div class="md-body">
+          <div class="md-body" id="body-${p.id}">
             ${p.html}
           </div>
         </article>`).join('\n');
