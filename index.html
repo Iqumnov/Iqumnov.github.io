@@ -42,7 +42,7 @@
           "https://github.com/Iqumnov",
           "https://orcid.org/0009-0001-7924-1522",
           "https://t.me/iqumnov",
-          "https://discord.com/users/iqumnov",
+          "https://discord.com/users/1515738859910987959",
           "https://www.linkedin.com/in/iqumnov",
           "https://www.youtube.com/@Iqumnov",
           "https://www.instagram.com/iqumnov"
@@ -56,7 +56,7 @@
 
     <link rel="preload" as="image" href="img/pfp.webp" type="image/webp" fetchpriority="high" />
     <link rel="preload" as="font" href="fonts/ibm-plex-mono-200-latin.woff2" type="font/woff2" crossorigin />
-    <link rel="preload" as="font" href="fonts/inter-500-latin.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="fonts/inter-600-latin.woff2" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="fonts/fonts.css" />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="dns-prefetch" href="https://orcid.org" />
@@ -76,8 +76,11 @@
       }
       * { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
       ::selection { background: var(--border-mid); color: var(--text-white); }
-      html { scrollbar-width: none; }
-      ::-webkit-scrollbar { display: none; }
+      html { scrollbar-width: thin; scrollbar-color: var(--border-mid) var(--bg-base); }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: var(--bg-base); }
+      ::-webkit-scrollbar-thumb { background: var(--border-mid); }
+      ::-webkit-scrollbar-thumb:hover { background: var(--border-bright); }
 
       html, body {
         background-color: var(--bg-base);
@@ -100,10 +103,10 @@
       }
 
       strong { font-weight: 500; color: var(--text-white); }
-      h1, h2, h3, .section-marker, .initiative-name {
+      h1, h2, h3, h4, .section-marker, .initiative-name {
         font-family: var(--font-heading);
         text-wrap: balance;
-        font-weight: 500;
+        font-weight: 600;
       }
       p, .initiative-desc { text-wrap: pretty; }
       .dispatch-date, .bullet-list, table { font-variant-numeric: tabular-nums; }
@@ -166,7 +169,7 @@
       .identity-title {
         font-family: var(--font-heading);
         font-size: 22px;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 1.25;
         color: var(--text-white);
         letter-spacing: -0.025em;
@@ -260,7 +263,7 @@
       .section-marker {
         font-family: var(--font-heading);
         font-size: 13.5px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--text-white);
         letter-spacing: 0.04em;
         margin-bottom: 12px;
@@ -366,7 +369,7 @@
       .initiative-name {
         font-family: var(--font-heading);
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--text-white);
         letter-spacing: -0.01em;
       }
@@ -392,7 +395,8 @@
         line-height: 1.65;
         overflow-x: auto;
         white-space: pre;
-        scrollbar-width: none;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-mid) transparent;
       }
 
       .dispatch-list {
@@ -463,30 +467,67 @@
         text-decoration: none;
       }
 
-      .md-body h1 {
+      .md-body h1,
+      .md-body h2.article-title,
+      .md-body > h2:first-child {
         font-family: var(--font-heading);
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--text-white);
-        margin-bottom: 16px;
+        margin: 0 0 16px;
         border-bottom: 1px solid var(--border-dim);
         padding-bottom: 6px;
       }
-      .md-body h2 {
+      .md-body h2,
+      .md-body h3 {
         font-family: var(--font-heading);
         font-size: 13.5px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--text-white);
         margin: 20px 0 8px;
         border-bottom: 1px dashed var(--border-dim);
         padding-bottom: 4px;
       }
-      .md-body h3 {
+      .md-body h4 {
         font-family: var(--font-heading);
         font-size: 12px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--text-white);
         margin: 16px 0 6px;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .math-inline {
+        font-family: var(--font-mono);
+        color: var(--text-white);
+      }
+      .math-display {
+        margin: 14px 0;
+        padding: 10px 14px;
+        background: var(--bg-subtle);
+        border: 1px solid var(--border-dim);
+        text-align: center;
+        color: var(--text-white);
+        overflow-x: auto;
+      }
+      .math-frac {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        vertical-align: middle;
+        margin: 0 3px;
+        font-size: 0.9em;
+        line-height: 1.15;
+      }
+      .math-num {
+        border-bottom: 1px solid var(--text-main);
+        padding: 0 3px 1px;
+      }
+      .math-den {
+        padding: 1px 3px 0;
+      }
+      .math-text {
+        font-style: normal;
       }
       .md-body p, .md-body ul, .md-body ol, .md-body blockquote, .md-body pre, .md-body table {
         margin-bottom: 14px;
@@ -536,6 +577,13 @@
           bottom: -12px;
           left: -5px;
           right: -5px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
         }
       }
     </style>
@@ -589,7 +637,7 @@
                 <path d="M8.5 13.5l13-11"/>
               </svg>
             </a>
-            <a href="https://discord.com/users/iqumnov" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Discord" aria-label="Discord">
+            <a href="https://discord.com/users/1515738859910987959" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Discord" aria-label="Discord">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M18.5 5.5A16.5 16.5 0 0 0 14.5 4c-.2.4-.4.9-.6 1.4a15.3 15.3 0 0 0-4.8 0c-.2-.5-.4-1-.6-1.4A16.5 16.5 0 0 0 4.5 5.5C2 9.5 1.5 14 2 18.5a16.8 16.8 0 0 0 5.2 2.6c.4-.6.8-1.2 1.1-1.9a10.8 10.8 0 0 1-1.7-.8c.1-.1.3-.2.4-.3a11.9 11.9 0 0 0 10 0c.1.1.3.2.4.3-.5.3-1.1.6-1.7.8.3.7.7 1.3 1.1 1.9a16.8 16.8 0 0 0 5.2-2.6c.6-5.2-.8-9.7-2.5-13z"/>
                 <circle cx="8.5" cy="13.5" r="1.5"/>
@@ -648,7 +696,7 @@
               <span class="initiative-name">PQCanary</span>
               <div class="project-actions">
                 <a href="https://github.com/Iqumnov/PQCanary" target="_blank" rel="noopener noreferrer" class="project-link">GitHub ↗</a>
-                <a href="https://pqcanary.pages.dev" target="_blank" rel="noopener noreferrer" class="project-link visit-link">Visit ↗</a>
+                <a href="https://pqcanary.iqumnov.com" target="_blank" rel="noopener noreferrer" class="project-link visit-link">Visit ↗</a>
               </div>
             </div>
             <div class="initiative-desc" id="desc-pqcanary">Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization (DOI: 10.5281/zenodo.24527917).</div>
@@ -664,7 +712,7 @@
               </div>
             </div>
             <div class="initiative-desc" id="desc-qir">LLVM Quantum Intermediate Representation (QIR) reverse engineering &amp; formal verification suite: algebraic commutation deobfuscator (involution collapse &amp; Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins (DOI: 10.5281/zenodo.24528097).</div>
-            <div class="initiative-stack" id="stack-qir"><strong>Stack:</strong> Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP</div>
+            <div class="initiative-stack" id="stack-qir"><strong>Stack:</strong> Rust (#![deny(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP</div>
           </div>
 
           <div class="initiative-card glitch-target">
@@ -685,7 +733,7 @@
         <div class="section-marker" id="marker-skills">⌍ Technical Skills ⌎</div>
         <div class="ascii-tree" id="skills-ascii">┌── Languages ───────────► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
 ├── Security &amp; Backend ──► Spring Boot • Spring Security • Quarkus • Bouncy Castle (JCA/PQC) • Keycloak • gRPC
-├── Quantum &amp; Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Z3 SMT
+├── Quantum &amp; Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Lean 4 • Z3 SMT
 ├── Crypto &amp; Compliance ─► liboqs • NIST PQC (FIPS 203/204/205) • PKI / X.509 • PKCS#11 • eBPF • OpenTelemetry • DORA / NIS2
 ├── Infra &amp; Cloud ───────► Linux (RHEL/Debian) • Git • Docker • Kubernetes • AWS
 └── Spoken Languages ────► English (Advanced) • French (Learning) • Russian (Native)</div>
@@ -729,9 +777,17 @@
 
         <article class="article-reader" id="reader-pqc-lattice-formal-verification">
           <div class="md-body" id="body-pqc-lattice-formal-verification">
-            <h1>SMT verification notes for ML-KEM polynomial reduction</h1><p>In post-quantum schemes like ML-KEM (Kyber), side-channel attacks like KyberSlash don't attack the lattice math—they target small timing discrepancies during modular reduction and Number Theoretic Transform (NTT) butterfly loops.</p><p>In <strong>PQCanary</strong>, we use the Z3 SMT solver to statically check polynomial arithmetic for out-of-bounds values and secret-dependent branches.</p><hr />
-<h2>1. Checking Layer by Layer</h2><p>Polynomial operations in ML-KEM work over $R_q = \mathbb{Z}_q[X]/(X^{256} + 1)$ with $q = 3329$.</p><p>Trying to verify an entire 256-point NTT in an SMT solver all at once blows up into too many bitvector clauses and times out. Instead, we verify inductively: checking each butterfly step and modular reduction separately to confirm that coefficients stay strictly within $[-q/2, q/2]$.</p><hr />
-<h2>2. Symbolic Range Check in Z3</h2><p>Here is a simplified example checking Montgomery reduction bounds in Rust with Z3:</p><pre><code class="language-rust">use z3::ast::{Ast, BV};
+            <h2 class="article-title">SMT verification notes for ML-KEM polynomial reduction</h2>
+<p>In post-quantum schemes like ML-KEM (Kyber), side-channel attacks like KyberSlash don't attack the lattice math—they target small timing discrepancies during modular reduction and Number Theoretic Transform (NTT) butterfly loops.</p>
+<p>In <strong>PQCanary</strong>, we use the Z3 SMT solver to statically check polynomial arithmetic for out-of-bounds values and secret-dependent branches.</p>
+<hr />
+<h3>1. Checking Layer by Layer</h3>
+<p>Polynomial operations in ML-KEM work over <span class="math-inline">R<sub>q</sub> = &#x2124;<sub>q</sub>[X]/(X<sup>256</sup> + 1)</span> with <span class="math-inline">q = 3329</span>.</p>
+<p>Trying to verify an entire 256-point NTT in an SMT solver all at once blows up into too many bitvector clauses and times out. Instead, we verify inductively: checking each butterfly step and modular reduction separately to confirm that coefficients stay strictly within <span class="math-inline">[-q/2, q/2]</span>.</p>
+<hr />
+<h3>2. Symbolic Range Check in Z3</h3>
+<p>Here is a simplified example checking Montgomery reduction bounds in Rust with Z3:</p>
+<pre><code class="language-rust">use z3::ast::{Ast, BV};
 use z3::{Config, Context, SatResult, Solver};
 
 pub fn check_montgomery_bounds() -&gt; Result&lt;(), String&gt; {
@@ -763,18 +819,27 @@ pub fn check_montgomery_bounds() -&gt; Result&lt;(), String&gt; {
         SatResult::Unknown =&gt; Err("Solver timeout".into()),
     }
 }
-</code></pre><hr />
-<h2>3. Memory & Branch Invariants</h2><p>We also check that memory load addresses during NTT passes do not depend on secret polynomial values:
-<ul><li>Verify that conditional branches (<code>br i1</code>) never evaluate on secret-tainted variables.</li><li>Assert that load offsets satisfy $\frac{\partial \text{offset}}{\partial \text{secret}} = 0$.</li></ul></p><p>This statically catches subtle timing leaks before running empirical side-channel tests.
-</p>
+</code></pre>
+<hr />
+<h3>3. Memory &amp; Branch Invariants</h3>
+<p>We also check that memory load addresses during NTT passes do not depend on secret polynomial values:</p>
+<ul><li>Verify that conditional branches (<code>br i1</code>) never evaluate on secret-tainted variables.</li><li>Assert that load offsets satisfy <span class="math-inline"><span class="math-frac"><span class="math-num">&part; <span class="math-text">offset</span></span><span class="math-den">&part; <span class="math-text">secret</span></span></span> = 0</span>.</li></ul>
+<p>This statically catches subtle timing leaks before running empirical side-channel tests.</p>
           </div>
         </article>
 
         <article class="article-reader" id="reader-quantum-intermediate-representation-reversing">
           <div class="md-body" id="body-quantum-intermediate-representation-reversing">
-            <h1>Deobfuscating Quantum Intermediate Representation (QIR)</h1><p>QIR compiles quantum circuits into LLVM IR by emitting quantum gates as external calls (like <code>@__quantum__qis__h__body</code> or <code>@__quantum__qis__cnot__body</code>).</p><p>During compilation and transpilation, circuits often end up with redundant gates, reordered operations, or continuous rotation gadgets that make the circuit hard to inspect.</p><p>In <strong>QIR Reversing</strong>, we parse the bitcode, clean up the circuit using basic quantum commutation rules, and check that the resulting circuit has the exact same unitary behavior.</p><hr />
-<h2>1. Commutation Rules</h2><p>If two gates commute ($[A, B] = AB - BA = 0$), they can swap order along qubit wires without changing the circuit's action:
-<ul><li><strong>Disjoint wires:</strong> Gates on separate qubits always commute: $[A \otimes I, I \otimes B] = 0$.</li><li><strong>Phase gates:</strong> Diagonal gates in the computational basis commute: $[Z, S] = [S, T] = [R_z(\alpha), R_z(\beta)] = 0$.</li><li><strong>Controlled gates:</strong> $CX$ commutes with $Z$ on control and $X$ on target.</li></ul></p><p>Sliding commuting gates together lets us cancel inverse pairs ($H \cdot H = I$, $CX \cdot CX = I$) and combine rotation angles ($R_z(\alpha) \cdot R_z(\beta) = R_z(\alpha + \beta)$).</p><pre><code class="language-rust">// Quick check if two multi-qubit Pauli operators commute
+            <h2 class="article-title">Deobfuscating Quantum Intermediate Representation (QIR)</h2>
+<p>QIR compiles quantum circuits into LLVM IR by emitting quantum gates as external calls (like <code>@__quantum__qis__h__body</code> or <code>@__quantum__qis__cnot__body</code>).</p>
+<p>During compilation and transpilation, circuits often end up with redundant gates, reordered operations, or continuous rotation gadgets that make the circuit hard to inspect.</p>
+<p>In <strong>QIR Reversing</strong>, we parse the bitcode, clean up the circuit using basic quantum commutation rules, and check that the resulting circuit has the exact same unitary behavior.</p>
+<hr />
+<h3>1. Commutation Rules</h3>
+<p>If two gates commute (<span class="math-inline">[A, B] = AB - BA = 0</span>), they can swap order along qubit wires without changing the circuit's action:</p>
+<ul><li><strong>Disjoint wires:</strong> Gates on separate qubits always commute: <span class="math-inline">[A &otimes; I, I &otimes; B] = 0</span>.</li><li><strong>Phase gates:</strong> Diagonal gates in the computational basis commute: <span class="math-inline">[Z, S] = [S, T] = [R<sub>z</sub>(&alpha;), R<sub>z</sub>(&beta;)] = 0</span>.</li><li><strong>Controlled gates:</strong> <span class="math-inline">CX</span> commutes with <span class="math-inline">Z</span> on control and <span class="math-inline">X</span> on target.</li></ul>
+<p>Sliding commuting gates together lets us cancel inverse pairs (<span class="math-inline">H &middot; H = I</span>, <span class="math-inline">CX &middot; CX = I</span>) and combine rotation angles (<span class="math-inline">R<sub>z</sub>(&alpha;) &middot; R<sub>z</sub>(&beta;) = R<sub>z</sub>(&alpha; + &beta;)</span>).</p>
+<pre><code class="language-rust">// Quick check if two multi-qubit Pauli operators commute
 pub fn commutes(g1: &amp;PauliGate, g2: &amp;PauliGate) -&gt; bool {
     let mut anticommuting_pairs = 0;
     for (p1, p2) in g1.qubits.iter().zip(g2.qubits.iter()) {
@@ -784,16 +849,26 @@ pub fn commutes(g1: &amp;PauliGate, g2: &amp;PauliGate) -&gt; bool {
     }
     anticommuting_pairs % 2 == 0
 }
-</code></pre><hr />
-<h2>2. Unitary Verification</h2><p>To make sure cleaning up the circuit didn't alter its behavior, we compute the full unitary matrix $U \in \mathbb{C}^{2^N \times 2^N}$ and check quantum process fidelity:</p><p>$$F(U_{\text{orig}}, U_{\text{clean}}) = \frac{1}{d^2} \left| \text{Tr}(U_{\text{orig}}^\dagger U_{\text{clean}}) \right|^2$$</p><p>where $d = 2^N$. $F = 1.00000000$ confirms the physical transformation is identical.</p><p>We also built a small C-ABI plugin for Rizin and Cutter (<code>librz_qir.so</code>) so we can open <code>.bc</code> bitcode files and inspect the cleaned circuits directly in the disassembler.
-</p>
+</code></pre>
+<hr />
+<h3>2. Unitary Verification</h3>
+<p>To make sure cleaning up the circuit didn't alter its behavior, we compute the full unitary matrix <span class="math-inline">U &isin; &#x2102;<sup>2<sup>N</sup> &times; 2<sup>N</sup></sup></span> and check quantum process fidelity:</p>
+<div class="math-display">F(U<sub><span class="math-text">orig</span></sub>, U<sub><span class="math-text">clean</span></sub>) = <span class="math-frac"><span class="math-num">1</span><span class="math-den">d<sup>2</sup></span></span> | <span class="math-text">Tr</span>(U<sub><span class="math-text">orig</span></sub><sup>&dagger;</sup> U<sub><span class="math-text">clean</span></sub>) |<sup>2</sup></div>
+<p>where <span class="math-inline">d = 2<sup>N</sup></span>. <span class="math-inline">F = 1.00000000</span> confirms the physical transformation is identical.</p>
+<p>We also built a small C-ABI plugin for Rizin and Cutter (<code>librz_qir.so</code>) so we can open <code>.bc</code> bitcode files and inspect the cleaned circuits directly in the disassembler.</p>
           </div>
         </article>
 
         <article class="article-reader" id="reader-ebpf-kernel-cryptographic-invariants">
           <div class="md-body" id="body-ebpf-kernel-cryptographic-invariants">
-            <h1>Tracking crypto invariants with eBPF</h1><p>Auditing crypto calls from user space using <code>LD_PRELOAD</code> doesn't work for statically linked Go or Rust binaries, or when applications call syscalls like <code>SYS_keyctl</code> or <code>AF_ALG</code> directly.</p><p>Using eBPF lets you attach probes to kernel crypto functions without modifying the target applications or slowing down the system.</p><hr />
-<h2>1. Checking for Nonce/IV Reuse</h2><p>In ciphers like AES-GCM, reusing an initialization vector (IV) under the same key completely breaks authentication and lets an attacker recover the hash key.</p><p>With eBPF, we can record seen <code>(key, nonce)</code> pairs in a BPF hash map and emit an alert if a duplicate is observed:</p><pre><code class="language-c">// SPDX-License-Identifier: GPL-2.0
+            <h2 class="article-title">Tracking crypto invariants with eBPF</h2>
+<p>Auditing crypto calls from user space using <code>LD_PRELOAD</code> doesn't work for statically linked Go or Rust binaries, or when applications call syscalls like <code>SYS_keyctl</code> or <code>AF_ALG</code> directly.</p>
+<p>Using eBPF lets you attach probes to kernel crypto functions without modifying the target applications or slowing down the system.</p>
+<hr />
+<h3>1. Checking for Nonce/IV Reuse</h3>
+<p>In ciphers like AES-GCM, reusing an initialization vector (IV) under the same key completely breaks authentication and lets an attacker recover the hash key.</p>
+<p>With eBPF, we can record seen <code>(key, nonce)</code> pairs in a BPF hash map and emit an alert if a duplicate is observed:</p>
+<pre><code class="language-c">// SPDX-License-Identifier: GPL-2.0
 #include &lt;vmlinux.h&gt;
 #include &lt;bpf/bpf_helpers.h&gt;
 #include &lt;bpf/bpf_tracing.h&gt;
@@ -836,9 +911,10 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
     }
     return 0;
 }
-</code></pre><hr />
-<h2>2. Low Overhead with Ring Buffers</h2><p>Events are written to user space via BPF ring buffers (<code>BPF_MAP_TYPE_RINGBUF</code>). Because it's a lockless, memory-mapped circular buffer shared across CPUs, it handles bursts without drops or adding latency to encryption throughput.
-</p>
+</code></pre>
+<hr />
+<h3>2. Low Overhead with Ring Buffers</h3>
+<p>Events are written to user space via BPF ring buffers (<code>BPF_MAP_TYPE_RINGBUF</code>). Because it's a lockless, memory-mapped circular buffer shared across CPUs, it handles bursts without drops or adding latency to encryption throughput.</p>
           </div>
         </article>
         <!-- ARTICLES_END -->
@@ -928,9 +1004,12 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
       }
 
       // Execute reliably on both cold navigation and reload after presentation paint
+      const prefersReducedMotion = Boolean(
+        window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      );
       let glitchStarted = false;
       function startGlitch() {
-        if (glitchStarted) return;
+        if (glitchStarted || prefersReducedMotion) return;
         glitchStarted = true;
         requestAnimationFrame(() => {
           requestAnimationFrame(initDatamoshGlitch);
@@ -955,7 +1034,7 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
 
       // 2. Lenis Momentum Smooth Scrolling Engine
       let lenis = null;
-      if (typeof Lenis !== 'undefined') {
+      if (!prefersReducedMotion && typeof Lenis !== 'undefined') {
         try {
           lenis = new Lenis({
             duration: 1.15,
@@ -991,14 +1070,21 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
         }
       }
 
-      // 4. Prevent automatic scroll restoration or anchor jumping on reload
+      // 4. Preserve deep-link hashes (#reader-... or section anchors), reset scroll otherwise
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
-      if (window.location.hash) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      } else {
+        const rawHash = window.location.hash.slice(1);
+        const slug = rawHash.startsWith('reader-') ? rawHash.slice(7) : rawHash;
+        const readerEl = document.getElementById('reader-' + slug);
+        if (readerEl) {
+          openBlogPost(slug);
+          requestAnimationFrame(() => readerEl.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' }));
+        }
       }
-      window.scrollTo(0, 0);
 
       // 5. Offline Service Worker Registration (PWA)
       if ('serviceWorker' in navigator && location.protocol !== 'file:') {
@@ -1021,15 +1107,15 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
           marker_initiatives: "⌍ Core Initiatives ⌎",
           desc_pqcanary: "Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization (DOI: 10.5281/zenodo.24527917).",
           stack_pqcanary: "<strong>Stack:</strong> Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit",
-          desc_qir: "LLVM Quantum Intermediate Representation (QIR) reverse engineering &amp; formal verification suite: algebraic commutation deobfuscator (involution collapse &amp; Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins (DOI: 10.5281/zenodo.24528097).",
-          stack_qir: "<strong>Stack:</strong> Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP",
-          desc_turtleshell: "Multi-tenant process isolation, side-channel defense &amp; hardware benchmarking platform for shared quantum clouds: 4-contour physical mitigation (spectral QPU partitioning, compiler bytecode audit, QuTiP-verified laser cooling, telemetric SPC), QIB benchmark suite, and browser-native simulation engine (DOI: 10.5281/zenodo.24528037).",
+          desc_qir: "LLVM Quantum Intermediate Representation (QIR) reverse engineering & formal verification suite: algebraic commutation deobfuscator (involution collapse & Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins (DOI: 10.5281/zenodo.24528097).",
+          stack_qir: "<strong>Stack:</strong> Rust (#![deny(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP",
+          desc_turtleshell: "Multi-tenant process isolation, side-channel defense & hardware benchmarking platform for shared quantum clouds: 4-contour physical mitigation (spectral QPU partitioning, compiler bytecode audit, QuTiP-verified laser cooling, telemetric SPC), QIB benchmark suite, and browser-native simulation engine (DOI: 10.5281/zenodo.24528037).",
           stack_turtleshell: "<strong>Stack:</strong> Python, FastAPI, QuTiP, Qiskit, TypeScript, React, Vite, NetworkX, Scikit-learn",
           visit_links: "Visit ↗",
           marker_skills: "⌍ Technical Skills ⌎",
           skills_ascii: `┌── Languages ───────────► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
 ├── Security & Backend ──► Spring Boot • Spring Security • Quarkus • Bouncy Castle (JCA/PQC) • Keycloak • gRPC
-├── Quantum & Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Z3 SMT
+├── Quantum & Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Lean 4 • Z3 SMT
 ├── Crypto & Compliance ─► liboqs • NIST PQC (FIPS 203/204/205) • PKI / X.509 • PKCS#11 • eBPF • OpenTelemetry • DORA / NIS2
 ├── Infra & Cloud ───────► Linux (RHEL/Debian) • Git • Docker • Kubernetes • AWS
 └── Spoken Languages ────► English (Advanced) • French (Learning) • Russian (Native)`,
@@ -1059,14 +1145,14 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
           desc_pqcanary: "Корпоративная платформа аудита, верификации и автоматизированной миграции на постквантовую криптографию (PQC): генерация CBOM (NIST FIPS 203/204/205), формальная Z3 SMT верификация границ константного времени полиномиальной редукции в решетках (защита от KyberSlash) и автоматическая модернизация AST (DOI: 10.5281/zenodo.24527917).",
           stack_pqcanary: "<strong>Стек:</strong> Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit",
           desc_qir: "Комплекс обратной разработки и формальной верификации квантового промежуточного представления LLVM QIR: алгебраический деобфускатор коммутации (схлопывание инволюций и объединение вращений групп Ли), верификация точности квантового процесса в 2^N-мерном гильбертовом пространстве (F=1.0) с доказательствами в Lean 4 и нативные плагины для Rizin/Cutter (DOI: 10.5281/zenodo.24528097).",
-          stack_qir: "<strong>Стек:</strong> Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP",
+          stack_qir: "<strong>Стек:</strong> Rust (#![deny(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP",
           desc_turtleshell: "Платформа многоарендной изоляции процессов, защиты от атак по побочным каналам и аппаратного бенчмаркинга для квантовых облаков: 4-контурная физическая защита (спектральное разбиение QPU, аудит байткода компилятора, верифицированное в QuTiP лазерное охлаждение, телеметрический SPC), бенчмарк-комплекс QIB и автономный браузерный симулятор (DOI: 10.5281/zenodo.24528037).",
           stack_turtleshell: "<strong>Стек:</strong> Python, FastAPI, QuTiP, Qiskit, TypeScript, React, Vite, NetworkX, Scikit-learn",
           visit_links: "Сайт ↗",
           marker_skills: "⌍ Технические навыки ⌎",
           skills_ascii: `┌── Языки программирования ──► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
 ├── Безопасность и бэкенд ──► Spring Boot • Spring Security • Quarkus • Bouncy Castle (JCA/PQC) • Keycloak • gRPC
-├── Квантовые вычисления ───► Qiskit • PennyLane • ETSI GS QKD 014 • Z3 SMT
+├── Квантовые вычисления ───► Qiskit • PennyLane • ETSI GS QKD 014 • Lean 4 • Z3 SMT
 ├── Криптография и аудит ───► liboqs • NIST PQC (FIPS 203/204/205) • PKI / X.509 • PKCS#11 • eBPF • OpenTelemetry • DORA / NIS2
 ├── Инфраструктура и облака ─► Linux (RHEL/Debian) • Git • Docker • Kubernetes • AWS
 └── Языки общения ──────────► Русский (родной) • Английский (продвинутый) • Французский (изучаю)`,
@@ -1088,9 +1174,9 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
       };
 
       const ARTICLES_RU = {
-        "pqc-lattice-formal-verification": `<h1>Заметки по SMT-верификации полиномиальной редукции в ML-KEM</h1><p>В схемах постквантовой криптографии, таких как ML-KEM (Kyber), атаки по побочным каналам (например, KyberSlash) направлены не на математическую структуру решеток, а на минимальные временные расхождения при модульной редукции и в циклах «бабочек» теоретико-числового преобразования (NTT).</p><p>В проекте <strong>PQCanary</strong> мы используем SMT-солвер Z3 для статической проверки полиномиальной арифметики на предмет выхода за границы диапазонов и наличия ветвлений, зависящих от секретных данных.</p><hr />
-<h2>1. Послойная индуктивная проверка</h2><p>Полиномиальные операции в ML-KEM выполняются над кольцом $R_q = \mathbb{Z}_q[X]/(X^{256} + 1)$ с $q = 3329$.</p><p>Попытка верифицировать все 256-точечное NTT в SMT-солвере за один проход приводит к комбинаторному взрыву битовых ограничений и превышению таймаута. Вместо этого мы верифицируем преобразование индуктивно: проверяя каждый шаг «бабочки» и модульной редукции по отдельности, чтобы гарантировать, что коэффициенты строго остаются в интервале $[-q/2, q/2]$.</p><hr />
-<h2>2. Символическая проверка диапазонов в Z3</h2><p>Упрощенный пример проверки границ редукции Монтгомери на Rust с использованием Z3:</p><pre><code class="language-rust">use z3::ast::{Ast, BV};
+        "pqc-lattice-formal-verification": `<h2 class="article-title">Заметки по SMT-верификации полиномиальной редукции в ML-KEM</h2><p>В схемах постквантовой криптографии, таких как ML-KEM (Kyber), атаки по побочным каналам (например, KyberSlash) направлены не на математическую структуру решеток, а на минимальные временные расхождения при модульной редукции и в циклах «бабочек» теоретико-числового преобразования (NTT).</p><p>В проекте <strong>PQCanary</strong> мы используем SMT-солвер Z3 для статической проверки полиномиальной арифметики на предмет выхода за границы диапазонов и наличия ветвлений, зависящих от секретных данных.</p><hr />
+<h3>1. Послойная индуктивная проверка</h3><p>Полиномиальные операции в ML-KEM выполняются над кольцом <span class="math-inline">R<sub>q</sub> = &#x2124;<sub>q</sub>[X]/(X<sup>256</sup> + 1)</span> с <span class="math-inline">q = 3329</span>.</p><p>Попытка верифицировать все 256-точечное NTT в SMT-солвере за один проход приводит к комбинаторному взрыву битовых ограничений и превышению таймаута. Вместо этого мы верифицируем преобразование индуктивно: проверяя каждый шаг «бабочки» и модульной редукции по отдельности, чтобы гарантировать, что коэффициенты строго остаются в интервале <span class="math-inline">[-q/2, q/2]</span>.</p><hr />
+<h3>2. Символическая проверка диапазонов в Z3</h3><p>Упрощенный пример проверки границ редукции Монтгомери на Rust с использованием Z3:</p><pre><code class="language-rust">use z3::ast::{Ast, BV};
 use z3::{Config, Context, SatResult, Solver};
 
 pub fn check_montgomery_bounds() -&gt; Result&lt;(), String&gt; {
@@ -1123,11 +1209,11 @@ pub fn check_montgomery_bounds() -&gt; Result&lt;(), String&gt; {
     }
 }
 </code></pre><hr />
-<h2>3. Инварианты памяти и ветвления</h2><p>Мы также проверяем, что адреса чтения памяти в проходах NTT не зависят от значений секретных полиномов:
-<ul><li>Проверка отсутствия условных переходов (<code>br i1</code>) по помеченным секретом переменным.</li><li>Утверждение, что смещения загрузки удовлетворяют $\frac{\partial \text{offset}}{\partial \text{secret}} = 0$.</li></ul></p><p>Это позволяет статически обнаружить тонкие утечки по времени до проведения эмпирических тестов по побочным каналам.</p>`,
+<h3>3. Инварианты памяти и ветвления</h3><p>Мы также проверяем, что адреса чтения памяти в проходах NTT не зависят от значений секретных полиномов:</p>
+<ul><li>Проверка отсутствия условных переходов (<code>br i1</code>) по помеченным секретом переменным.</li><li>Утверждение, что смещения загрузки удовлетворяют <span class="math-inline"><span class="math-frac"><span class="math-num">&part; offset</span><span class="math-den">&part; secret</span></span> = 0</span>.</li></ul><p>Это позволяет статически обнаружить тонкие утечки по времени до проведения эмпирических тестов по побочным каналам.</p>`,
 
-        "quantum-intermediate-representation-reversing": `<h1>Деобфускация квантового промежуточного представления (QIR)</h1><p>QIR компилирует квантовые схемы в LLVM IR, представляя квантовые вентили в виде внешних вызовов (например, <code>@__quantum__qis__h__body</code> или <code>@__quantum__qis__cnot__body</code>).</p><p>В процессе компиляции и транспиляции схемы нередко насыщаются избыточными вентилями, переупорядоченными операциями или непрерывными вращательными гаджетами, затрудняющими их анализ.</p><p>В проекте <strong>QIR Reversing</strong> мы парсим биткод, очищаем квантовую схему на основе фундаментальных правил квантовой коммутации и проверяем строгое сохранение унитарного поведения результирующей схемы.</p><hr />
-<h2>1. Правила коммутации</h2><p>Если два вентиля коммутируют ($[A, B] = AB - BA = 0$), их порядок на квантовых проводах можно изменять без изменения действия схемы:</p><ul><li><strong>Непересекающиеся провода:</strong> Вентили на раздельных кубитах всегда коммутируют: $[A \otimes I, I \otimes B] = 0$.</li><li><strong>Фазовые вентили:</strong> Диагональные в вычислительном базисе вентили коммутируют: $[Z, S] = [S, T] = [R_z(\alpha), R_z(\beta)] = 0$.</li><li><strong>Контролируемые вентили:</strong> Вентиль $CX$ коммутирует с $Z$ на управляющем кубите и с $X$ на целевом кубите.</li></ul><p>Продвижение коммутирующих вентилей навстречу друг другу позволяет взаимно уничтожать самообратные пары ($H \cdot H = I$, $CX \cdot CX = I$) и объединять углы непрерывных вращений ($R_z(\alpha) \cdot R_z(\beta) = R_z(\alpha + \beta)$).</p><pre><code class="language-rust">// Проверка коммутации двух многокубитных операторов Паули
+        "quantum-intermediate-representation-reversing": `<h2 class="article-title">Деобфускация квантового промежуточного представления (QIR)</h2><p>QIR компилирует квантовые схемы в LLVM IR, представляя квантовые вентили в виде внешних вызовов (например, <code>@__quantum__qis__h__body</code> или <code>@__quantum__qis__cnot__body</code>).</p><p>В процессе компиляции и транспиляции схемы нередко насыщаются избыточными вентилями, переупорядоченными операциями или непрерывными вращательными гаджетами, затрудняющими их анализ.</p><p>В проекте <strong>QIR Reversing</strong> мы парсим биткод, очищаем квантовую схему на основе фундаментальных правил квантовой коммутации и проверяем строгое сохранение унитарного поведения результирующей схемы.</p><hr />
+<h3>1. Правила коммутации</h3><p>Если два вентиля коммутируют (<span class="math-inline">[A, B] = AB - BA = 0</span>), их порядок на квантовых проводах можно изменять без изменения действия схемы:</p><ul><li><strong>Непересекающиеся провода:</strong> Вентили на раздельных кубитах всегда коммутируют: <span class="math-inline">[A &otimes; I, I &otimes; B] = 0</span>.</li><li><strong>Фазовые вентили:</strong> Диагональные в вычислительном базисе вентили коммутируют: <span class="math-inline">[Z, S] = [S, T] = [R<sub>z</sub>(&alpha;), R<sub>z</sub>(&beta;)] = 0</span>.</li><li><strong>Контролируемые вентили:</strong> Вентиль <span class="math-inline">CX</span> коммутирует с <span class="math-inline">Z</span> на управляющем кубите и с <span class="math-inline">X</span> на целевом кубите.</li></ul><p>Продвижение коммутирующих вентилей навстречу друг другу позволяет взаимно уничтожать самообратные пары (<span class="math-inline">H &middot; H = I</span>, <span class="math-inline">CX &middot; CX = I</span>) и объединять углы непрерывных вращений (<span class="math-inline">R<sub>z</sub>(&alpha;) &middot; R<sub>z</sub>(&beta;) = R<sub>z</sub>(&alpha; + &beta;)</span>).</p><pre><code class="language-rust">// Проверка коммутации двух многокубитных операторов Паули
 pub fn commutes(g1: &amp;PauliGate, g2: &amp;PauliGate) -&gt; bool {
     let mut anticommuting_pairs = 0;
     for (p1, p2) in g1.qubits.iter().zip(g2.qubits.iter()) {
@@ -1138,10 +1224,10 @@ pub fn commutes(g1: &amp;PauliGate, g2: &amp;PauliGate) -&gt; bool {
     anticommuting_pairs % 2 == 0
 }
 </code></pre><hr />
-<h2>2. Унитарная верификация</h2><p>Чтобы гарантировать, что оптимизация не нарушила алгоритм, мы вычисляем полную унитарную матрицу $U \in \mathbb{C}^{2^N \times 2^N}$ и проверяем точность квантового процесса (Process Fidelity):</p><p>$$F(U_{\text{orig}}, U_{\text{clean}}) = \frac{1}{d^2} \left| \text{Tr}(U_{\text{orig}}^\dagger U_{\text{clean}}) \right|^2$$</p><p>где $d = 2^N$. Значение $F = 1.00000000$ подтверждает полную идентичность физического преобразования.</p><p>Мы также создали нативный C-ABI плагин для Rizin и Cutter (<code>librz_qir.so</code>), позволяющий открывать биткод <code>.bc</code> и анализировать очищенные схемы непосредственно в дисассемблере.</p>`,
+<h3>2. Унитарная верификация</h3><p>Чтобы гарантировать, что оптимизация не нарушила алгоритм, мы вычисляем полную унитарную матрицу <span class="math-inline">U &isin; &#x2102;<sup>2<sup>N</sup> &times; 2<sup>N</sup></sup></span> и проверяем точность квантового процесса (Process Fidelity):</p><div class="math-display">F(U<sub>orig</sub>, U<sub>clean</sub>) = <span class="math-frac"><span class="math-num">1</span><span class="math-den">d<sup>2</sup></span></span> | Tr(U<sub>orig</sub><sup>&dagger;</sup> U<sub>clean</sub>) |<sup>2</sup></div><p>где <span class="math-inline">d = 2<sup>N</sup></span>. Значение <span class="math-inline">F = 1.00000000</span> подтверждает полную идентичность физического преобразования.</p><p>Мы также создали нативный C-ABI плагин для Rizin и Cutter (<code>librz_qir.so</code>), позволяющий открывать биткод <code>.bc</code> и анализировать очищенные схемы непосредственно в дисассемблере.</p>`,
 
-        "ebpf-kernel-cryptographic-invariants": `<h1>Отслеживание криптографических инвариантов с помощью eBPF</h1><p>Аудит криптографических вызовов из пользовательского пространства с помощью <code>LD_PRELOAD</code> неприменим для статически скомпилированных бинарных файлов на Go или Rust, а также когда приложения напрямую вызывают системные вызовы ядра, такие как <code>SYS_keyctl</code> или <code>AF_ALG</code>.</p><p>Использование eBPF позволяет внедрять зонды в функции криптографической подсистемы ядра Linux без изменения целевых приложений и без снижения производительности системы.</p><hr />
-<h2>1. Контроль повторного использования Nonce/IV</h2><p>В режимах шифрования, таких как AES-GCM, повторное использование вектора инициализации (IV) с одним и тем же ключом полностью разрушает аутентичность и позволяет злоумышленнику восстановить ключ аутентификации.</p><p>С помощью eBPF мы можем регистрировать пары <code>(key, nonce)</code> в хэш-таблице BPF и генерировать оповещение при обнаружении дубликата:</p><pre><code class="language-c">// SPDX-License-Identifier: GPL-2.0
+        "ebpf-kernel-cryptographic-invariants": `<h2 class="article-title">Отслеживание криптографических инвариантов с помощью eBPF</h2><p>Аудит криптографических вызовов из пользовательского пространства с помощью <code>LD_PRELOAD</code> неприменим для статически скомпилированных бинарных файлов на Go или Rust, а также когда приложения напрямую вызывают системные вызовы ядра, такие как <code>SYS_keyctl</code> или <code>AF_ALG</code>.</p><p>Использование eBPF позволяет внедрять зонды в функции криптографической подсистемы ядра Linux без изменения целевых приложений и без снижения производительности системы.</p><hr />
+<h3>1. Контроль повторного использования Nonce/IV</h3><p>В режимах шифрования, таких как AES-GCM, повторное использование вектора инициализации (IV) с одним и тем же ключом полностью разрушает аутентичность и позволяет злоумышленнику восстановить ключ аутентификации.</p><p>С помощью eBPF мы можем регистрировать пары <code>(key, nonce)</code> в хэш-таблице BPF и генерировать оповещение при обнаружении дубликата:</p><pre><code class="language-c">// SPDX-License-Identifier: GPL-2.0
 #include &lt;vmlinux.h&gt;
 #include &lt;bpf/bpf_helpers.h&gt;
 #include &lt;bpf/bpf_tracing.h&gt;
@@ -1185,7 +1271,7 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
     return 0;
 }
 </code></pre><hr />
-<h2>2. Минимальные накладные расходы благодаря кольцевым буферам</h2><p>События передаются в пользовательское пространство через кольцевые буферы BPF (<code>BPF_MAP_TYPE_RINGBUF</code>). Будучи неблокирующим кольцевым буфером в разделяемой памяти между ядрами процессора, он эффективно справляется со всплесками нагрузки без потерь событий и не увеличивает задержки шифрования трафика.</p>`
+<h3>2. Минимальные накладные расходы благодаря кольцевым буферам</h3><p>События передаются в пользовательское пространство через кольцевые буферы BPF (<code>BPF_MAP_TYPE_RINGBUF</code>). Будучи неблокирующим кольцевым буфером в разделяемой памяти между ядрами процессора, он эффективно справляется со всплесками нагрузки без потерь событий и не увеличивает задержки шифрования трафика.</p>`
       };
 
       // Cache original English articles from initial render
@@ -1193,7 +1279,9 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
 
       function setLanguage(lang) {
         if (!I18N[lang]) return;
-        localStorage.setItem("user_lang", lang);
+        try {
+          localStorage.setItem("user_lang", lang);
+        } catch (e) {}
         document.documentElement.lang = lang;
 
         // Toggle button states
@@ -1289,8 +1377,12 @@ int BPF_KPROBE(trace_crypto_alloc_skcipher, const char *alg_name) {
       }
 
       // Initialize language from storage or navigator
-      const savedLang = localStorage.getItem("user_lang") || (navigator.language && navigator.language.startsWith("ru") ? "ru" : "en");
-      if (savedLang === "ru") {
+      let savedLang = null;
+      try {
+        savedLang = localStorage.getItem("user_lang");
+      } catch (e) {}
+      const initLang = savedLang || (navigator.language && navigator.language.startsWith("ru") ? "ru" : "en");
+      if (initLang === "ru") {
         setLanguage("ru");
       }
 </script>

@@ -9,7 +9,7 @@
   "icons": [
     {
       "src": "img/pfp.webp",
-      "sizes": "192x192 512x512",
+      "sizes": "480x640",
       "type": "image/webp"
     }
   ]

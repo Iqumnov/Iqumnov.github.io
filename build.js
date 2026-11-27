@@ -5,6 +5,107 @@ const ROOT_DIR = __dirname;
 const BLOG_DIR = path.join(ROOT_DIR, 'blog');
 const INDEX_HTML = path.join(ROOT_DIR, 'index.html');
 const TERMINAL_TXT = path.join(ROOT_DIR, 'terminal.txt');
+const SITEMAP_XML = path.join(ROOT_DIR, 'sitemap.xml');
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function escapeAttr(str) {
+  return escapeHtml(str).replace(/"/g, '&quot;');
+}
+
+function replaceTexFrac(str) {
+  let out = '';
+  let i = 0;
+  while (i < str.length) {
+    if (str.startsWith('\\frac{', i)) {
+      let j = i + 6;
+      let depth = 1;
+      while (j < str.length && depth > 0) {
+        if (str[j] === '{') depth++;
+        else if (str[j] === '}') depth--;
+        j++;
+      }
+      const num = str.slice(i + 6, j - 1);
+      if (str[j] === '{') {
+        let k = j + 1;
+        depth = 1;
+        while (k < str.length && depth > 0) {
+          if (str[k] === '{') depth++;
+          else if (str[k] === '}') depth--;
+          k++;
+        }
+        const den = str.slice(j + 1, k - 1);
+        out += `<span class="math-frac"><span class="math-num">${texToUnicodeHtml(num)}</span><span class="math-den">${texToUnicodeHtml(den)}</span></span>`;
+        i = k;
+        continue;
+      }
+    }
+    out += str[i];
+    i++;
+  }
+  return out;
+}
+
+function safeUrl(url) {
+  const s = String(url).trim();
+  if (/^(?:javascript|vbscript|data):/i.test(s.replace(/[\u0000-\u0020]+/g, ''))) {
+    return '#';
+  }
+  return escapeAttr(s);
+}
+
+function texToUnicodeHtml(tex) {
+  let out = escapeHtml(String(tex).trim());
+  const cmdMap = {
+    '\\mathbb{Z}': '&#x2124;',
+    '\\mathbb{C}': '&#x2102;',
+    '\\mathbb{R}': '&#x211D;',
+    '\\mathbb{N}': '&#x2115;',
+    '\\partial': '&part;',
+    '\\dagger': '&dagger;',
+    '\\alpha': '&alpha;',
+    '\\beta': '&beta;',
+    '\\gamma': '&gamma;',
+    '\\theta': '&theta;',
+    '\\pi': '&pi;',
+    '\\phi': '&phi;',
+    '\\otimes': '&otimes;',
+    '\\cdot': '&middot;',
+    '\\times': '&times;',
+    '\\equiv': '&equiv;',
+    '\\neq': '&ne;',
+    '\\in': '&isin;',
+    '\\to': '&rarr;',
+    '\\infty': '&infin;',
+    '\\left|': '|',
+    '\\right|': '|',
+    '\\left(': '(',
+    '\\right)': ')',
+    '\\left[': '[',
+    '\\right]': ']',
+    '\\le': '&le;',
+    '\\ge': '&ge;',
+  };
+
+  out = replaceTexFrac(out);
+  out = out.replace(/\\text\{([^{}]+)\}/g, (_, txt) => `<span class="math-text">${txt}</span>`);
+  out = out
+    .replace(/\^\{((?:[^{}]|<[^>]+>)+)\}/g, (_, s) => `<sup>${s}</sup>`)
+    .replace(/_\{((?:[^{}]|<[^>]+>)+)\}/g, (_, s) => `<sub>${s}</sub>`)
+    .replace(/\^(\\[A-Za-z]+|[A-Za-z0-9*†])/g, (_, s) => `<sup>${s}</sup>`)
+    .replace(/_(\\[A-Za-z]+|[A-Za-z0-9])/g, (_, s) => `<sub>${s}</sub>`);
+
+  const ordered = Object.entries(cmdMap).sort((a, b) => b[0].length - a[0].length);
+  for (const [k, v] of ordered) {
+    out = out.split(k).join(v);
+  }
+  return out;
+}
 
 // Permanent core initiatives (hardcoded in index.html, mirrored here for terminal.txt)
 const INITIATIVES = [
@@ -13,12 +114,12 @@ const INITIATIVES = [
     summary: 'Enterprise post-quantum cryptographic (PQC) discovery and remediation platform: CBOM compliance generation (NIST FIPS 203/204/205), Z3 SMT formal verification of constant-time lattice polynomial reduction bounds (KyberSlash side-channel prevention), and automated AST modernization (DOI: 10.5281/zenodo.24527917).',
     stack: 'Rust, Solid.js, WebAssembly, Z3 SMT Solver, liboqs, Qiskit',
     github: 'https://github.com/Iqumnov/PQCanary',
-    visit: 'https://pqcanary.pages.dev'
+    visit: 'https://pqcanary.iqumnov.com'
   },
   {
     title: 'QIR Reversing',
     summary: 'LLVM Quantum Intermediate Representation (QIR) reverse engineering & formal verification suite: algebraic commutation deobfuscator (involution collapse & Lie rotation consolidation), 2^N Hilbert space unitary process fidelity verification (F=1.0) with Lean 4 proofs, and native Rizin/Cutter plugins (DOI: 10.5281/zenodo.24528097).',
-    stack: 'Rust (#![forbid(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP',
+    stack: 'Rust (#![deny(unsafe_code)]), LLVM QIR, Lean 4, WebAssembly, Rizin C-ABI, Cutter (PySide), OpenQASM 3.0, MCP',
     github: 'https://github.com/Iqumnov/Qir-Reversing',
     visit: 'https://qir-reversing.iqumnov.com'
   },
@@ -74,55 +175,170 @@ function parseMarkdownMetadata(filePath, defaultId) {
   return meta;
 }
 
+function renderInline(text) {
+  const codeSpans = [];
+  let s = text.replace(/`([^`]+)`/g, (_, code) => {
+    const idx = codeSpans.length;
+    codeSpans.push(`<code>${escapeHtml(code)}</code>`);
+    return `%%INLINE_CODE_${idx}%%`;
+  });
+
+  const mathSpans = [];
+  s = s.replace(/\$([^$\n]+?)\$/g, (_, tex) => {
+    const idx = mathSpans.length;
+    mathSpans.push(`<span class="math-inline">${texToUnicodeHtml(tex)}</span>`);
+    return `%%INLINE_MATH_${idx}%%`;
+  });
+
+  s = escapeHtml(s)
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => `<img src="${safeUrl(url)}" alt="${escapeAttr(alt)}" loading="lazy" />`)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => `<a href="${safeUrl(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+  mathSpans.forEach((span, i) => {
+    s = s.replace(`%%INLINE_MATH_${i}%%`, span);
+  });
+  codeSpans.forEach((span, i) => {
+    s = s.replace(`%%INLINE_CODE_${i}%%`, span);
+  });
+  return s;
+}
+
 function parseMarkdownToHtml(md) {
   if (!md) return '';
   let cleanMd = md.replace(/^---[\s\S]*?---\s*/, '');
 
   const codeBlocks = [];
   cleanMd = cleanMd.replace(/```([a-z0-9_-]+)?\r?\n([\s\S]*?)```/g, (match, lang, code) => {
-    const clean = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const idx = codeBlocks.length;
-    codeBlocks.push(`<pre><code class="language-${lang || 'text'}">${clean}</code></pre>`);
+    codeBlocks.push(`<pre><code class="language-${escapeAttr(lang || 'text')}">${escapeHtml(code)}</code></pre>`);
     return `\n\n%%CODE_BLOCK_${idx}%%\n\n`;
   });
 
-  let html = cleanMd
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
-    .replace(/^(?:---|___|\*\*\*)\s*$/gm, '<hr />')
-    .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/gim, '<em>$1</em>')
-    .replace(/`([^`]+)`/gim, '<code>$1</code>')
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy" />')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-    .replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>')
-    .replace(/^\s*\*\s+(.*$)/gim, '<li>$1</li>')
-    .replace(/^\s*\d+\.\s+(.*$)/gim, '<li>$1</li>')
-    .replace(/^\|(.+)\|$/gim, (match) => {
-      const cells = match.split('|').filter((c, i, a) => i > 0 && i < a.length - 1);
-      if (cells.every((c) => /^[-:\s]+$/.test(c))) {
-        return '<!-- table-sep -->';
-      }
-      const cellTags = cells.map((c) => `<td>${c.trim()}</td>`).join('');
-      return `<tr>${cellTags}</tr>`;
-    })
-    .replace(/\n\s*\n/gim, '</p><p>');
-
-  let parsed = `<p>${html}</p>`
-    .replace(/<!-- table-sep -->\s*/g, '')
-    .replace(/((?:<tr>.*?<\/tr>\s*)+)/g, '<table>$1</table>')
-    .replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>')
-    .replace(/<\/ul>\s*<ul>/g, '')
-    .replace(/<p>\s*(<(?:h[1-6]|ul|ol|table|blockquote|hr|pre)[^>]*>[\s\S]*?<\/(?:h[1-6]|ul|ol|table|blockquote|pre)>|<hr\s*\/?>)\s*<\/p>/gi, '$1')
-    .replace(/<p>\s*<\/p>/g, '');
-
-  codeBlocks.forEach((block, i) => {
-    parsed = parsed.replace(new RegExp(`<p>\\s*%%CODE_BLOCK_${i}%%\\s*<\\/p>|%%CODE_BLOCK_${i}%%`, 'g'), block);
+  const mathBlocks = [];
+  cleanMd = cleanMd.replace(/\$\$([\s\S]*?)\$\$/g, (_, tex) => {
+    const idx = mathBlocks.length;
+    mathBlocks.push(`<div class="math-display">${texToUnicodeHtml(tex)}</div>`);
+    return `\n\n%%MATH_BLOCK_${idx}%%\n\n`;
   });
 
-  return parsed;
+  const lines = cleanMd.split(/\r?\n/);
+  const blocks = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      i++;
+      continue;
+    }
+
+    const codeMatch = trimmed.match(/^%%CODE_BLOCK_(\d+)%%$/);
+    if (codeMatch) {
+      blocks.push(codeBlocks[Number(codeMatch[1])]);
+      i++;
+      continue;
+    }
+
+    const mathMatch = trimmed.match(/^%%MATH_BLOCK_(\d+)%%$/);
+    if (mathMatch) {
+      blocks.push(mathBlocks[Number(mathMatch[1])]);
+      i++;
+      continue;
+    }
+
+    if (/^(?:---|___|\*\*\*)\s*$/.test(trimmed)) {
+      blocks.push('<hr />');
+      i++;
+      continue;
+    }
+
+    const h3Match = line.match(/^###\s+(.+)$/);
+    if (h3Match) {
+      blocks.push(`<h4>${renderInline(h3Match[1].trim())}</h4>`);
+      i++;
+      continue;
+    }
+    const h2Match = line.match(/^##\s+(.+)$/);
+    if (h2Match) {
+      blocks.push(`<h3>${renderInline(h2Match[1].trim())}</h3>`);
+      i++;
+      continue;
+    }
+    const h1Match = line.match(/^#\s+(.+)$/);
+    if (h1Match) {
+      blocks.push(`<h2 class="article-title">${renderInline(h1Match[1].trim())}</h2>`);
+      i++;
+      continue;
+    }
+
+    if (/^>\s?/.test(line)) {
+      const quoteLines = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])) {
+        quoteLines.push(renderInline(lines[i].replace(/^>\s?/, '')));
+        i++;
+      }
+      blocks.push(`<blockquote>${quoteLines.join('<br />')}</blockquote>`);
+      continue;
+    }
+
+    if (/^\s*[-*]\s+/.test(line)) {
+      const items = [];
+      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+        items.push(`<li>${renderInline(lines[i].replace(/^\s*[-*]\s+/, ''))}</li>`);
+        i++;
+      }
+      blocks.push(`<ul>${items.join('')}</ul>`);
+      continue;
+    }
+
+    if (/^\s*\d+\.\s+/.test(line)) {
+      const items = [];
+      while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
+        items.push(`<li>${renderInline(lines[i].replace(/^\s*\d+\.\s+/, ''))}</li>`);
+        i++;
+      }
+      blocks.push(`<ol>${items.join('')}</ol>`);
+      continue;
+    }
+
+    if (/^\|.+\|$/.test(trimmed)) {
+      const rows = [];
+      while (i < lines.length && /^\|.+\|$/.test(lines[i].trim())) {
+        const cells = lines[i].trim().split('|').slice(1, -1);
+        if (!cells.every((c) => /^[-:\s]+$/.test(c))) {
+          const tag = rows.length === 0 ? 'th' : 'td';
+          rows.push(`<tr>${cells.map((c) => `<${tag}>${renderInline(c.trim())}</${tag}>`).join('')}</tr>`);
+        }
+        i++;
+      }
+      blocks.push(`<table>${rows.join('')}</table>`);
+      continue;
+    }
+
+    const paraLines = [];
+    while (
+      i < lines.length &&
+      lines[i].trim() &&
+      !/^%%(?:CODE|MATH)_BLOCK_\d+%%$/.test(lines[i].trim()) &&
+      !/^(?:---|___|\*\*\*)\s*$/.test(lines[i].trim()) &&
+      !/^#{1,3}\s+/.test(lines[i]) &&
+      !/^>\s?/.test(lines[i]) &&
+      !/^\s*(?:[-*]|\d+\.)\s+/.test(lines[i]) &&
+      !/^\|.+\|$/.test(lines[i].trim())
+    ) {
+      paraLines.push(renderInline(lines[i]));
+      i++;
+    }
+    if (paraLines.length > 0) {
+      blocks.push(`<p>${paraLines.join(' ')}</p>`);
+    }
+  }
+
+  return blocks.join('\n');
 }
 
 function generateTerminalFile(initiatives, blogPosts) {
@@ -130,7 +346,7 @@ function generateTerminalFile(initiatives, blogPosts) {
     { name: 'GitHub',    val: 'https://github.com/Iqumnov' },
     { name: 'ORCID',     val: 'https://orcid.org/0009-0001-7924-1522' },
     { name: 'Telegram',  val: 'https://t.me/iqumnov' },
-    { name: 'Discord',   val: 'https://discord.com/users/iqumnov' },
+    { name: 'Discord',   val: 'https://discord.com/users/1515738859910987959' },
     { name: 'LinkedIn',  val: 'https://www.linkedin.com/in/iqumnov' },
     { name: 'YouTube',   val: 'https://www.youtube.com/@Iqumnov' },
     { name: 'Instagram', val: 'https://www.instagram.com/iqumnov' },
@@ -171,7 +387,7 @@ ${initiativesText}
 ⌍ Technical Skills ⌎
 ┌── Languages ───────────► Rust • Python • C/C++ • Java • C# • SQL (Postgres) • OpenQASM
 ├── Security & Backend ──► Spring Boot • Spring Security • Quarkus • Bouncy Castle (JCA/PQC) • Keycloak • gRPC
-├── Quantum & Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Z3 SMT
+├── Quantum & Formal ────► Qiskit • PennyLane • ETSI GS QKD 014 • Lean 4 • Z3 SMT
 ├── Crypto & Compliance ─► liboqs • NIST PQC (FIPS 203/204/205) • PKI / X.509 • PKCS#11 • eBPF • OpenTelemetry • DORA / NIS2
 ├── Infra & Cloud ───────► Linux (RHEL/Debian) • Git • Docker • Kubernetes • AWS
 └── Spoken Languages ────► English (Advanced) • French (Learning) • Russian (Native)
@@ -202,6 +418,35 @@ ${blogText}
   console.log('[BUILD] Generated clean terminal.txt (pure plaintext, Title Case headers, complete socials)');
 }
 
+function generateSitemap(blogPosts) {
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [
+    { loc: 'https://iqumnov.com/', lastmod: today, changefreq: 'weekly', priority: '1.0' },
+    { loc: 'https://iqumnov.com/terminal.txt', lastmod: today, changefreq: 'monthly', priority: '0.8' },
+    ...blogPosts.map(p => ({
+      loc: `https://iqumnov.com/blog/${p.id}.md`,
+      lastmod: p.date || today,
+      changefreq: 'monthly',
+      priority: '0.7'
+    }))
+  ];
+
+  const entries = urls.map(u => `  <url>
+    <loc>${escapeHtml(u.loc)}</loc>
+    <lastmod>${escapeHtml(u.lastmod)}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join('\n');
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries}
+</urlset>
+`;
+  fs.writeFileSync(SITEMAP_XML, xml);
+  console.log('[BUILD] Updated sitemap.xml dynamically');
+}
+
 function build() {
   console.log('[BUILD] Compiling markdown blog posts into static SSG index.html...');
 
@@ -228,7 +473,7 @@ function build() {
   const dispatchesHtml = blogPosts.map(p => `
           <li class="dispatch-item" tabindex="0" role="button" aria-expanded="false" onclick="openBlogPost('${p.id}', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openBlogPost('${p.id}', event);}">
             <span class="dispatch-date">${p.date || ''}</span>
-            <span class="dispatch-title-link" id="title-${p.id}">${p.title}</span>
+            <span class="dispatch-title-link" id="title-${p.id}">${escapeHtml(p.title)}</span>
           </li>`).join('\n');
 
   const articlesHtml = blogPosts.map(p => `
@@ -256,8 +501,9 @@ function build() {
     console.log('[BUILD] Successfully compiled blog markdown into static index.html');
   }
 
-  // 3. Generate clean terminal.txt
+  // 3. Generate clean terminal.txt and dynamic sitemap.xml
   generateTerminalFile(INITIATIVES, blogPosts);
+  generateSitemap(blogPosts);
 }
 
 build();
